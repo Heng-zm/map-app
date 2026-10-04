@@ -194,17 +194,17 @@
 		BB0100662C00000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB0100672C00000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB0100682C00000100000001 /* MapViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MapViewer.entitlements; sourceTree = "<group>"; };
-		BB0100692C00000100000001 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities/DeepLinkHandler.swift"; sourceTree = "<group>"; };
-		BB0100702C00000100000001 /* WidgetDataSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services/WidgetDataSyncService.swift"; sourceTree = "<group>"; };
+		BB0100692C00000100000001 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
+		BB0100702C00000100000001 /* WidgetDataSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataSyncService.swift; sourceTree = "<group>"; };
 		BB0100712C00000100000001 /* CoordinateWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components/CoordinateWidgetView.swift"; sourceTree = "<group>"; };
 		BB0100722C00000100000001 /* FavoritesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components/FavoritesWidgetView.swift"; sourceTree = "<group>"; };
 		BB0100732C00000100000001 /* QuickActionsWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components/QuickActionsWidgetView.swift"; sourceTree = "<group>"; };
-		BB0100742C00000100000001 /* MapViewerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewerWidgetBundle.swift"; sourceTree = "<group>"; };
-		BB0100752C00000100000001 /* RecordedTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models/RecordedTrack.swift"; sourceTree = "<group>"; };
-		BB0100762C00000100000001 /* GPXExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities/GPXExporter.swift"; sourceTree = "<group>"; };
-		BB0100772C00000100000001 /* TrackRecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking/ViewModels/TrackRecordingViewModel.swift"; sourceTree = "<group>"; };
-		BB0100782C00000100000001 /* TrackRecordingHUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking/Views/TrackRecordingHUDView.swift"; sourceTree = "<group>"; };
-		BB0100792C00000100000001 /* TrackDetailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking/Views/TrackDetailSheetView.swift"; sourceTree = "<group>"; };
+		BB0100742C00000100000001 /* MapViewerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewerWidgetBundle.swift; sourceTree = "<group>"; };
+		BB0100752C00000100000001 /* RecordedTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedTrack.swift; sourceTree = "<group>"; };
+		BB0100762C00000100000001 /* GPXExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXExporter.swift; sourceTree = "<group>"; };
+		BB0100772C00000100000001 /* TrackRecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewModels/TrackRecordingViewModel.swift"; sourceTree = "<group>"; };
+		BB0100782C00000100000001 /* TrackRecordingHUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views/TrackRecordingHUDView.swift"; sourceTree = "<group>"; };
+		BB0100792C00000100000001 /* TrackDetailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views/TrackDetailSheetView.swift"; sourceTree = "<group>"; };
 
 /* Tests File References */
 		BB0200012C00000100000001 /* CoordinateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/CoordinateFormatterTests.swift"; sourceTree = "<group>"; };
