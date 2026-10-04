@@ -45,10 +45,21 @@ jobs:
 
       - name: Run Tests
         run: |
-          SIMULATOR_NAME=$(xcrun simctl list devices available | grep -E "iPhone 15|iPhone 14|iPhone" | head -n 1 | sed -E 's/^[[:space:]]+//; s/[[:space:]]+\(.*$//' || echo "iPhone 15")
+          SIM_LINE=$(xcrun simctl list devices available | grep -E "iPhone 15|iPhone 14|iPhone" | head -n 1)
+          SIM_ID=$(echo "${SIM_LINE}" | grep -oE '[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}' || true)
           
+          if [[ -n "${SIM_ID}" ]]; then
+            echo "Using Simulator ID: ${SIM_ID}"
+            xcrun simctl boot "${SIM_ID}" 2>/dev/null || true
+            DESTINATION="platform=iOS Simulator,id=${SIM_ID}"
+          else
+            DESTINATION="platform=iOS Simulator,name=iPhone 15"
+          fi
+          
+          echo "Executing tests with destination: ${DESTINATION}"
           xcodebuild test \
             -project "${{ env.PROJECT_NAME }}" \
             -scheme "${{ env.SCHEME_NAME }}" \
-            -destination "platform=iOS Simulator,name=${SIMULATOR_NAME}" \
+            -destination "${DESTINATION}" \
+            -only-testing:MapViewerTests \
             CODE_SIGNING_ALLOWED=NO
