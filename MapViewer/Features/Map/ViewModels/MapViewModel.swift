@@ -25,6 +25,7 @@ public final class MapViewModel {
     public var cameraPosition: MapCameraPosition = .region(MKCoordinateRegion.defaultRegion)
     public var visibleRegion: MKCoordinateRegion = MKCoordinateRegion.defaultRegion
     public var currentCenter: CLLocationCoordinate2D = CLLocationCoordinate2D.sanFrancisco
+    public var userLocation: CLLocation? { locationService.currentLocation }
     
     // Preferences & Layer Toggles
     public var mapStyleOption: MapStyleOption = .standard

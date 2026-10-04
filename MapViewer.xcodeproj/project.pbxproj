@@ -78,6 +78,11 @@
 		AA0100702C00000100000001 /* FavoritesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100722C00000100000001 /* FavoritesWidgetView.swift */; };
 		AA0100712C00000100000001 /* QuickActionsWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100732C00000100000001 /* QuickActionsWidgetView.swift */; };
 		AA0100722C00000100000001 /* MapViewerWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100742C00000100000001 /* MapViewerWidgetBundle.swift */; };
+		AA0100732C00000100000001 /* RecordedTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100752C00000100000001 /* RecordedTrack.swift */; };
+		AA0100742C00000100000001 /* GPXExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100762C00000100000001 /* GPXExporter.swift */; };
+		AA0100752C00000100000001 /* TrackRecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100772C00000100000001 /* TrackRecordingViewModel.swift */; };
+		AA0100762C00000100000001 /* TrackRecordingHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100782C00000100000001 /* TrackRecordingHUDView.swift */; };
+		AA0100772C00000100000001 /* TrackDetailSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100792C00000100000001 /* TrackDetailSheetView.swift */; };
 		AA0100662C00000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB0100662C00000100000001 /* Assets.xcassets */; };
 
 /* Tests Build Files */
@@ -91,6 +96,8 @@
 		AA0200082C00000100000001 /* RouteViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200082C00000100000001 /* RouteViewModelTests.swift */; };
 		AA0200092C00000100000001 /* DeepLinkHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200092C00000100000001 /* DeepLinkHandlerTests.swift */; };
 		AA0200102C00000100000001 /* WidgetDataSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200102C00000100000001 /* WidgetDataSyncTests.swift */; };
+		AA0200112C00000100000001 /* GPXExporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200112C00000100000001 /* GPXExporterTests.swift */; };
+		AA0200122C00000100000001 /* TrackRecordingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200122C00000100000001 /* TrackRecordingViewModelTests.swift */; };
 
 /* UI Tests Build Files */
 		AA0300012C00000100000001 /* MapViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0300012C00000100000001 /* MapViewerUITests.swift */; };
@@ -193,6 +200,11 @@
 		BB0100722C00000100000001 /* FavoritesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components/FavoritesWidgetView.swift"; sourceTree = "<group>"; };
 		BB0100732C00000100000001 /* QuickActionsWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components/QuickActionsWidgetView.swift"; sourceTree = "<group>"; };
 		BB0100742C00000100000001 /* MapViewerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewerWidgetBundle.swift"; sourceTree = "<group>"; };
+		BB0100752C00000100000001 /* RecordedTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models/RecordedTrack.swift"; sourceTree = "<group>"; };
+		BB0100762C00000100000001 /* GPXExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities/GPXExporter.swift"; sourceTree = "<group>"; };
+		BB0100772C00000100000001 /* TrackRecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking/ViewModels/TrackRecordingViewModel.swift"; sourceTree = "<group>"; };
+		BB0100782C00000100000001 /* TrackRecordingHUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking/Views/TrackRecordingHUDView.swift"; sourceTree = "<group>"; };
+		BB0100792C00000100000001 /* TrackDetailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tracking/Views/TrackDetailSheetView.swift"; sourceTree = "<group>"; };
 
 /* Tests File References */
 		BB0200012C00000100000001 /* CoordinateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/CoordinateFormatterTests.swift"; sourceTree = "<group>"; };
@@ -205,6 +217,8 @@
 		BB0200082C00000100000001 /* RouteViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/RouteViewModelTests.swift"; sourceTree = "<group>"; };
 		BB0200092C00000100000001 /* DeepLinkHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/DeepLinkHandlerTests.swift"; sourceTree = "<group>"; };
 		BB0200102C00000100000001 /* WidgetDataSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/WidgetDataSyncTests.swift"; sourceTree = "<group>"; };
+		BB0200112C00000100000001 /* GPXExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/GPXExporterTests.swift"; sourceTree = "<group>"; };
+		BB0200122C00000100000001 /* TrackRecordingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/TrackRecordingViewModelTests.swift"; sourceTree = "<group>"; };
 
 /* UI Tests File References */
 		BB0300012C00000100000001 /* MapViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewerUITests.swift; sourceTree = "<group>"; };
@@ -293,6 +307,7 @@
 				BB0100092C00000100000001 /* RouteInfo.swift */,
 				BB0100102C00000100000001 /* MeasurementItem.swift */,
 				BB0100112C00000100000001 /* PlaceSearchResult.swift */,
+				BB0100752C00000100000001 /* RecordedTrack.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -346,6 +361,7 @@
 				BB0100262C00000100000001 /* UnitFormatter.swift */,
 				BB0100272C00000100000001 /* GeodesicCalculator.swift */,
 				BB0100692C00000100000001 /* DeepLinkHandler.swift */,
+				BB0100762C00000100000001 /* GPXExporter.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -359,6 +375,7 @@
 				FF0100042C00000100000001 /* Routes */,
 				FF0100052C00000100000001 /* Measurement */,
 				FF0100062C00000100000001 /* Settings */,
+				FF0100072C00000100000001 /* Tracking */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -438,6 +455,16 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		FF0100072C00000100000001 /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100772C00000100000001 /* TrackRecordingViewModel.swift */,
+				BB0100782C00000100000001 /* TrackRecordingHUDView.swift */,
+				BB0100792C00000100000001 /* TrackDetailSheetView.swift */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
 		DD0100042C00000100000001 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
@@ -484,6 +511,8 @@
 				BB0200082C00000100000001 /* RouteViewModelTests.swift */,
 				BB0200092C00000100000001 /* DeepLinkHandlerTests.swift */,
 				BB0200102C00000100000001 /* WidgetDataSyncTests.swift */,
+				BB0200112C00000100000001 /* GPXExporterTests.swift */,
+				BB0200122C00000100000001 /* TrackRecordingViewModelTests.swift */,
 			);
 			path = MapViewerTests;
 			sourceTree = "<group>";
@@ -691,6 +720,11 @@
 				AA0100702C00000100000001 /* FavoritesWidgetView.swift in Sources */,
 				AA0100712C00000100000001 /* QuickActionsWidgetView.swift in Sources */,
 				AA0100722C00000100000001 /* MapViewerWidgetBundle.swift in Sources */,
+				AA0100732C00000100000001 /* RecordedTrack.swift in Sources */,
+				AA0100742C00000100000001 /* GPXExporter.swift in Sources */,
+				AA0100752C00000100000001 /* TrackRecordingViewModel.swift in Sources */,
+				AA0100762C00000100000001 /* TrackRecordingHUDView.swift in Sources */,
+				AA0100772C00000100000001 /* TrackDetailSheetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +742,8 @@
 				AA0200082C00000100000001 /* RouteViewModelTests.swift in Sources */,
 				AA0200092C00000100000001 /* DeepLinkHandlerTests.swift in Sources */,
 				AA0200102C00000100000001 /* WidgetDataSyncTests.swift in Sources */,
+				AA0200112C00000100000001 /* GPXExporterTests.swift in Sources */,
+				AA0200122C00000100000001 /* TrackRecordingViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

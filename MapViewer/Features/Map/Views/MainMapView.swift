@@ -24,6 +24,7 @@ public struct MainMapView: View {
     @State private var isRouteSheetPresented: Bool = false
     @State private var isSettingsPresented: Bool = false
     @State private var isShowingRouteStepsSheet: Bool = false
+    @State public var trackRecordingViewModel = TrackRecordingViewModel()
     
     public init(
         mapViewModel: MapViewModel,
@@ -114,6 +115,12 @@ public struct MainMapView: View {
                                     }
                                 }
                             }
+                        }
+                        
+                        // Live GPS Track Polyline
+                        if trackRecordingViewModel.isRecording && trackRecordingViewModel.routeCoordinates.count >= 2 {
+                            MapPolyline(coordinates: trackRecordingViewModel.routeCoordinates)
+                                .stroke(Color.orange, lineWidth: 5)
                         }
                     }
                     .mapStyle(
@@ -214,6 +221,22 @@ public struct MainMapView: View {
                         .buttonStyle(.plain)
                         .accessibilityLabel("Saved Places")
                         
+                        Button(action: {
+                            if trackRecordingViewModel.isRecording {
+                                trackRecordingViewModel.stopRecording()
+                            } else {
+                                trackRecordingViewModel.startRecording()
+                            }
+                        }) {
+                            Image(systemName: trackRecordingViewModel.isRecording ? "stop.circle.fill" : "record.circle")
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundColor(trackRecordingViewModel.isRecording ? .red : .primary)
+                                .frame(width: topBarHeight, height: topBarHeight)
+                                .glassBackground(cornerRadius: 16)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("GPS Track Recording")
+                        
                         Button(action: { isSettingsPresented = true }) {
                             Image(systemName: "gearshape.fill")
                                 .font(.system(size: 18, weight: .semibold))
@@ -226,6 +249,15 @@ public struct MainMapView: View {
                     }
                     .padding(.horizontal, safeLeading)
                     .padding(.top, safeTop + 4)
+                    
+                    if trackRecordingViewModel.isRecording {
+                        TrackRecordingHUDView(
+                            viewModel: trackRecordingViewModel,
+                            unitSystem: settingsViewModel.unitSystem
+                        )
+                        .padding(.top, 4)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                    }
                     
                     Spacer()
                 }
@@ -434,6 +466,19 @@ public struct MainMapView: View {
         }
         .sheet(isPresented: $isSettingsPresented) {
             SettingsView(viewModel: settingsViewModel)
+        }
+        .sheet(isPresented: $trackRecordingViewModel.isDetailSheetPresented) {
+            TrackDetailSheetView(
+                track: $trackRecordingViewModel.completedTrack,
+                unitSystem: settingsViewModel.unitSystem
+            )
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
+        }
+        .onChange(of: mapViewModel.userLocation) { _, newLoc in
+            if let loc = newLoc, trackRecordingViewModel.isRecording {
+                trackRecordingViewModel.processLocationUpdate(loc)
+            }
         }
         .alert("Map Notice", isPresented: $mapViewModel.showAlert) {
             Button("OK", role: .cancel) {}
