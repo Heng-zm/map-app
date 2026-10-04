@@ -9,15 +9,15 @@ import SwiftUI
 
 /// Sheet displaying summary statistics of a completed GPS track and GPX export options.
 public struct TrackDetailSheetView: View {
-    @Binding var track: RecordedTrack?
+    public let track: RecordedTrack?
     var unitSystem: UnitSystem = .metric
     @Environment(\.dismiss) private var dismiss
     
     @State private var exportURL: URL?
     @State private var isExporting = false
     
-    public init(track: Binding<RecordedTrack?>, unitSystem: UnitSystem = .metric) {
-        self._track = track
+    public init(track: RecordedTrack?, unitSystem: UnitSystem = .metric) {
+        self.track = track
         self.unitSystem = unitSystem
     }
     

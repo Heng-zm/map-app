@@ -125,8 +125,8 @@ jobs:
             -destination "${DESTINATION}" \
             -only-testing:MapViewerTests \
             -resultBundlePath "build/TestResults.xcresult" \
-            CODE_SIGNING_ALLOWED=NO
-          TEST_EXIT_CODE=$?
+            CODE_SIGNING_ALLOWED=NO 2>&1 | tee xcodebuild.log
+          TEST_EXIT_CODE="${PIPESTATUS[0]}"
           set -e
 
           if [ $TEST_EXIT_CODE -ne 0 ]; then

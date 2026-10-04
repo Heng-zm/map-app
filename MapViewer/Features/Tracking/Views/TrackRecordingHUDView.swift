@@ -10,7 +10,7 @@ import CoreLocation
 
 /// Floating HUD displayed during an active GPS track recording session.
 public struct TrackRecordingHUDView: View {
-    @Bindable var viewModel: TrackRecordingViewModel
+    var viewModel: TrackRecordingViewModel
     var unitSystem: UnitSystem = .metric
     
     @State private var isBlinking = false

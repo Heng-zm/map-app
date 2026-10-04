@@ -469,14 +469,14 @@ public struct MainMapView: View {
         }
         .sheet(isPresented: $trackRecordingViewModel.isDetailSheetPresented) {
             TrackDetailSheetView(
-                track: $trackRecordingViewModel.completedTrack,
+                track: trackRecordingViewModel.completedTrack,
                 unitSystem: settingsViewModel.unitSystem
             )
             .presentationDetents([.medium, .large])
             .presentationDragIndicator(.visible)
         }
-        .onChange(of: mapViewModel.userLocation) { _, newLoc in
-            if let loc = newLoc, trackRecordingViewModel.isRecording {
+        .onChange(of: mapViewModel.userCoordinate) { _, _ in
+            if let loc = mapViewModel.userLocation, trackRecordingViewModel.isRecording {
                 trackRecordingViewModel.processLocationUpdate(loc)
             }
         }
