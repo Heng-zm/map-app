@@ -118,16 +118,50 @@ jobs:
           rm -rf ~/Library/Developer/Xcode/DerivedData/*
           
           echo "Executing clean tests with destination: ${DESTINATION}"
+          set +e
           xcodebuild clean test \
             -project "${{ env.PROJECT_NAME }}" \
             -scheme "${{ env.SCHEME_NAME }}" \
             -destination "${DESTINATION}" \
             -only-testing:MapViewerTests \
             -resultBundlePath "build/TestResults.xcresult" \
-            CODE_SIGNING_ALLOWED=NO || {
-              echo "❌ Test run failed. Extracting detailed failure logs..."
-              exit 1
-            }
+            CODE_SIGNING_ALLOWED=NO
+          TEST_EXIT_CODE=$?
+          set -e
+
+          if [ $TEST_EXIT_CODE -ne 0 ]; then
+            echo "❌ Test run failed (exit code $TEST_EXIT_CODE). Extracting detailed failure logs..."
+            python3 -c '
+import json, subprocess, sys
+try:
+    proc = subprocess.run(
+        ["xcrun", "xcresulttool", "get", "--path", "build/TestResults.xcresult", "--format", "json"],
+        capture_output=True,
+        text=True
+    )
+    if proc.returncode == 0 and proc.stdout.strip():
+        data = json.loads(proc.stdout)
+        failures = data.get("issues", {}).get("testFailureSummaries", {}).get("_values", [])
+        if failures:
+            print(f"\n===== FOUND {len(failures)} TEST FAILURE(S) =====")
+            for idx, f in enumerate(failures, 1):
+                name = f.get("testCaseName", {}).get("_value", "Unknown Test")
+                msg = f.get("message", {}).get("_value", "No message")
+                doc = f.get("documentLocationInCreatingWorkspace", {}).get("url", {}).get("_value", "")
+                print(f"[{idx}] {name}")
+                print(f"    Message:  {msg}")
+                if doc:
+                    print(f"    Location: {doc}")
+            print("=========================================\n")
+        else:
+            print("No testFailureSummaries in root summary. The failure may be a compilation or setup error.")
+    else:
+        print("xcresulttool stderr:", proc.stderr)
+except Exception as e:
+    print("Failed to parse TestResults.xcresult:", e)
+' || true
+            exit $TEST_EXIT_CODE
+          fi
 
       - name: Upload Test Results
         if: failure()

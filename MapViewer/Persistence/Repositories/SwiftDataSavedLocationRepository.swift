@@ -83,9 +83,7 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
                 existing.updatedAt = Date()
             } else {
                 location.updatedAt = Date()
-                if location.modelContext == nil {
-                    context.insert(location)
-                }
+                context.insert(location)
             }
             try context.save()
         } catch {
@@ -96,12 +94,10 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func delete(_ location: SavedLocation) throws {
         do {
+            let targetId = location.id
             let all = try context.fetch(FetchDescriptor<SavedLocation>())
-            for item in all where item.id == location.id {
+            for item in all where item.id == targetId {
                 context.delete(item)
-            }
-            if location.modelContext != nil {
-                context.delete(location)
             }
             try context.save()
         } catch {
@@ -112,8 +108,16 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func toggleFavorite(_ location: SavedLocation) throws {
         do {
-            location.isFavorite.toggle()
-            location.updatedAt = Date()
+            let targetId = location.id
+            let all = try context.fetch(FetchDescriptor<SavedLocation>())
+            if let existing = all.first(where: { $0.id == targetId }) {
+                existing.isFavorite.toggle()
+                existing.updatedAt = Date()
+            } else {
+                location.isFavorite.toggle()
+                location.updatedAt = Date()
+                context.insert(location)
+            }
             try context.save()
         } catch {
             throw MapViewerError.persistenceFailed("Failed to toggle favorite: \(error.localizedDescription)")
@@ -170,6 +174,7 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
                 existing.isFavorite = pin.isFavorite
                 existing.updatedAt = Date()
             } else {
+                pin.updatedAt = Date()
                 context.insert(pin)
             }
             try context.save()
@@ -181,12 +186,10 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func deletePin(_ pin: CustomPin) throws {
         do {
+            let targetId = pin.id
             let all = try context.fetch(FetchDescriptor<CustomPin>())
-            for existing in all where existing.id == pin.id {
+            for existing in all where existing.id == targetId {
                 context.delete(existing)
-            }
-            if pin.modelContext != nil {
-                context.delete(pin)
             }
             try context.save()
         } catch {

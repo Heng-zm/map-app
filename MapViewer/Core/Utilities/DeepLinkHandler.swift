@@ -74,9 +74,10 @@ public struct DeepLinkHandler: Sendable {
         var components = URLComponents()
         components.scheme = urlScheme
         components.host = "coordinate"
+        let posix = Locale(identifier: "en_US_POSIX")
         components.queryItems = [
-            URLQueryItem(name: "lat", value: String(format: "%.6f", latitude)),
-            URLQueryItem(name: "lon", value: String(format: "%.6f", longitude))
+            URLQueryItem(name: "lat", value: String(format: locale: posix, "%.6f", latitude)),
+            URLQueryItem(name: "lon", value: String(format: locale: posix, "%.6f", longitude))
         ]
         return components.url
     }
@@ -86,9 +87,10 @@ public struct DeepLinkHandler: Sendable {
         var components = URLComponents()
         components.scheme = urlScheme
         components.host = "place"
+        let posix = Locale(identifier: "en_US_POSIX")
         components.queryItems = [
-            URLQueryItem(name: "lat", value: String(format: "%.6f", latitude)),
-            URLQueryItem(name: "lon", value: String(format: "%.6f", longitude)),
+            URLQueryItem(name: "lat", value: String(format: locale: posix, "%.6f", latitude)),
+            URLQueryItem(name: "lon", value: String(format: locale: posix, "%.6f", longitude)),
             URLQueryItem(name: "title", value: title)
         ]
         return components.url
@@ -98,4 +100,23 @@ public struct DeepLinkHandler: Sendable {
     public static let searchURL = URL(string: "\(urlScheme)://search")!
     public static let measureURL = URL(string: "\(urlScheme)://measure")!
     public static let locateURL = URL(string: "\(urlScheme)://locate")!
+}
+
+extension DeepLinkDestination {
+    public static func == (lhs: DeepLinkDestination, rhs: DeepLinkDestination) -> Bool {
+        switch (lhs, rhs) {
+        case (.coordinate(let c1), .coordinate(let c2)):
+            return abs(c1.latitude - c2.latitude) < 0.0001 && abs(c1.longitude - c2.longitude) < 0.0001
+        case (.place(let c1, let t1), .place(let c2, let t2)):
+            return t1 == t2 && abs(c1.latitude - c2.latitude) < 0.0001 && abs(c1.longitude - c2.longitude) < 0.0001
+        case (.search(let q1), .search(let q2)):
+            return q1 == q2
+        case (.measure, .measure):
+            return true
+        case (.locate, .locate):
+            return true
+        default:
+            return false
+        }
+    }
 }

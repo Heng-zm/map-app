@@ -168,7 +168,7 @@ public final class WidgetDataSyncService: @unchecked Sendable {
         )
         snapshot.lastSyncTime = Date()
         saveSnapshot(snapshot)
-        WidgetCenter.shared.reloadAllTimelines()
+        notifyWidgetCenter()
     }
     
     /// Updates widget snapshot with user's favorite places and relative distances.
@@ -195,7 +195,13 @@ public final class WidgetDataSyncService: @unchecked Sendable {
         }
         snapshot.lastSyncTime = Date()
         saveSnapshot(snapshot)
-        WidgetCenter.shared.reloadAllTimelines()
+        notifyWidgetCenter()
+    }
+    
+    private func notifyWidgetCenter() {
+        if NSClassFromString("XCTestCase") == nil {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
     
     /// Reads persisted snapshot from shared store.

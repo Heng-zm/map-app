@@ -7,14 +7,20 @@
 
 import XCTest
 import CoreLocation
+import SwiftData
 @testable import MapViewer
 
+@MainActor
 final class WidgetDataSyncTests: XCTestCase {
+    private var container: ModelContainer!
     private var testDefaults: UserDefaults!
     private var syncService: WidgetDataSyncService!
     
     override func setUp() {
         super.setUp()
+        let schema = Schema([SavedLocation.self, SearchHistoryItem.self, CustomPin.self])
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        container = try? ModelContainer(for: schema, configurations: [config])
         testDefaults = UserDefaults(suiteName: "WidgetDataSyncTestsSuite")
         testDefaults.removePersistentDomain(forName: "WidgetDataSyncTestsSuite")
         syncService = WidgetDataSyncService(defaults: testDefaults)
@@ -24,6 +30,7 @@ final class WidgetDataSyncTests: XCTestCase {
         testDefaults.removePersistentDomain(forName: "WidgetDataSyncTestsSuite")
         testDefaults = nil
         syncService = nil
+        container = nil
         super.tearDown()
     }
     
@@ -56,6 +63,9 @@ final class WidgetDataSyncTests: XCTestCase {
             category: "Attraction",
             isFavorite: true
         )
+        if let container = container {
+            container.mainContext.insert(place1)
+        }
         
         syncService.syncFavorites(places: [place1], userLocation: userCoord)
         
