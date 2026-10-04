@@ -33,9 +33,14 @@ on:
         required: true
         default: true
         type: boolean
+      release_tag:
+        description: "Custom Release Tag (leave empty for v1.0.<build_number>)"
+        required: false
+        default: ""
+        type: string
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -210,6 +215,19 @@ jobs:
           path: build/export/MapViewer.ipa
           if-no-files-found: error
           retention-days: 14
+
+      - name: Create GitHub Release
+        if: (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch') && success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.release_tag || format('v1.0.{0}', github.run_number) }}
+          name: ${{ inputs.release_tag && format('Map Viewer {0}', inputs.release_tag) || format('Map Viewer v1.0.{0}', github.run_number) }}
+          files: build/export/MapViewer.ipa
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Cleanup Code Signing Credentials
         if: always() && steps.check-secrets.outputs.has_signing_secrets == 'true'

@@ -39,8 +39,20 @@ jobs:
             -project "${{ env.PROJECT_NAME }}" \
             -scheme "${{ env.SCHEME_NAME }}"
 
+      - name: Check Code Signing Secrets Availability
+        id: check-secrets
+        run: |
+          if [[ -n "${{ secrets.BUILD_CERTIFICATE_BASE64 }}" ]] && [[ -n "${{ secrets.P12_PASSWORD }}" ]]; then
+            echo "has_signing_secrets=true" >> "$GITHUB_OUTPUT"
+            echo "✅ Code signing secrets detected."
+          else
+            echo "has_signing_secrets=false" >> "$GITHUB_OUTPUT"
+            echo "⚠️ Notice: BUILD_CERTIFICATE_BASE64 and/or P12_PASSWORD are not configured."
+            echo "The build will proceed with an ad-hoc/development device archive."
+          fi
+
       - name: Setup Code Signing
-        if: ${{ env.BUILD_CERTIFICATE_BASE64 != '' }}
+        if: steps.check-secrets.outputs.has_signing_secrets == 'true'
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
@@ -52,9 +64,9 @@ jobs:
 
       - name: Create Device Archive & Export
         env:
-          EXPORT_METHOD: "app-store"
+          EXPORT_METHOD: ${{ steps.check-secrets.outputs.has_signing_secrets == 'true' && 'app-store' || 'ad-hoc' }}
           TEAM_ID: ${{ secrets.APPLE_TEAM_ID || '' }}
-          HAS_SIGNING: ${{ secrets.BUILD_CERTIFICATE_BASE64 != '' }}
+          HAS_SIGNING: ${{ steps.check-secrets.outputs.has_signing_secrets }}
         run: |
           chmod +x scripts/build-ipa.sh
           ./scripts/build-ipa.sh
@@ -75,9 +87,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Teardown Keychain
-        if: always() && env.BUILD_CERTIFICATE_BASE64 != ''
-        env:
-          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+        if: always() && steps.check-secrets.outputs.has_signing_secrets == 'true'
         run: |
           chmod +x scripts/cleanup-signing.sh
           ./scripts/cleanup-signing.sh
