@@ -39,12 +39,8 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func fetchFavorites() throws -> [SavedLocation] {
         do {
-            let predicate = #Predicate<SavedLocation> { $0.isFavorite == true }
-            let descriptor = FetchDescriptor<SavedLocation>(
-                predicate: predicate,
-                sortBy: [SortDescriptor(\.updatedAt, order: .reverse)]
-            )
-            return try context.fetch(descriptor)
+            let all = try fetchAll()
+            return all.filter { $0.isFavorite }
         } catch {
             throw MapViewerError.persistenceFailed("Failed to fetch favorites: \(error.localizedDescription)")
         }
@@ -53,11 +49,8 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func save(_ location: SavedLocation) throws {
         do {
-            let targetId = location.id
-            let descriptor = FetchDescriptor<SavedLocation>(
-                predicate: #Predicate<SavedLocation> { $0.id == targetId }
-            )
-            if let existing = try context.fetch(descriptor).first {
+            let all = try context.fetch(FetchDescriptor<SavedLocation>())
+            if let existing = all.first(where: { $0.id == location.id }) {
                 existing.name = location.name
                 existing.notes = location.notes
                 existing.latitude = location.latitude
@@ -78,11 +71,8 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func update(_ location: SavedLocation) throws {
         do {
-            let targetId = location.id
-            let descriptor = FetchDescriptor<SavedLocation>(
-                predicate: #Predicate<SavedLocation> { $0.id == targetId }
-            )
-            if let existing = try context.fetch(descriptor).first {
+            let all = try context.fetch(FetchDescriptor<SavedLocation>())
+            if let existing = all.first(where: { $0.id == location.id }) {
                 existing.name = location.name
                 existing.notes = location.notes
                 existing.latitude = location.latitude
@@ -106,15 +96,11 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func delete(_ location: SavedLocation) throws {
         do {
-            let targetId = location.id
-            let descriptor = FetchDescriptor<SavedLocation>(
-                predicate: #Predicate<SavedLocation> { $0.id == targetId }
-            )
-            let existing = try context.fetch(descriptor)
-            for item in existing {
+            let all = try context.fetch(FetchDescriptor<SavedLocation>())
+            for item in all where item.id == location.id {
                 context.delete(item)
             }
-            if location.modelContext != nil && !existing.contains(where: { $0.id == location.id }) {
+            if location.modelContext != nil {
                 context.delete(location)
             }
             try context.save()
@@ -151,11 +137,8 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func savePin(_ pin: CustomPin) throws {
         do {
-            let targetId = pin.id
-            let descriptor = FetchDescriptor<CustomPin>(
-                predicate: #Predicate<CustomPin> { $0.id == targetId }
-            )
-            if let existing = try context.fetch(descriptor).first {
+            let all = try context.fetch(FetchDescriptor<CustomPin>())
+            if let existing = all.first(where: { $0.id == pin.id }) {
                 existing.title = pin.title
                 existing.subtitle = pin.subtitle
                 existing.notes = pin.notes
@@ -176,11 +159,8 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func updatePin(_ pin: CustomPin) throws {
         do {
-            let targetId = pin.id
-            let descriptor = FetchDescriptor<CustomPin>(
-                predicate: #Predicate<CustomPin> { $0.id == targetId }
-            )
-            if let existing = try context.fetch(descriptor).first {
+            let all = try context.fetch(FetchDescriptor<CustomPin>())
+            if let existing = all.first(where: { $0.id == pin.id }) {
                 existing.title = pin.title
                 existing.subtitle = pin.subtitle
                 existing.notes = pin.notes
@@ -201,15 +181,11 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func deletePin(_ pin: CustomPin) throws {
         do {
-            let targetId = pin.id
-            let descriptor = FetchDescriptor<CustomPin>(
-                predicate: #Predicate<CustomPin> { $0.id == targetId }
-            )
-            let existingPins = try context.fetch(descriptor)
-            for existing in existingPins {
+            let all = try context.fetch(FetchDescriptor<CustomPin>())
+            for existing in all where existing.id == pin.id {
                 context.delete(existing)
             }
-            if pin.modelContext != nil && !existingPins.contains(where: { $0.id == pin.id }) {
+            if pin.modelContext != nil {
                 context.delete(pin)
             }
             try context.save()

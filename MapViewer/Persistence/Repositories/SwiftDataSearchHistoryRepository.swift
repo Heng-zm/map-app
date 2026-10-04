@@ -82,15 +82,11 @@ public final class SwiftDataSearchHistoryRepository: SearchHistoryRepositoryProt
     @MainActor
     public func delete(_ item: SearchHistoryItem) throws {
         do {
-            let targetId = item.id
-            let descriptor = FetchDescriptor<SearchHistoryItem>(
-                predicate: #Predicate<SearchHistoryItem> { $0.id == targetId }
-            )
-            let existingItems = try context.fetch(descriptor)
-            for existing in existingItems {
+            let all = try context.fetch(FetchDescriptor<SearchHistoryItem>())
+            for existing in all where existing.id == item.id {
                 context.delete(existing)
             }
-            if item.modelContext != nil && !existingItems.contains(where: { $0.id == item.id }) {
+            if item.modelContext != nil {
                 context.delete(item)
             }
             try context.save()

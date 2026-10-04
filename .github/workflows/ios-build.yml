@@ -124,7 +124,19 @@ jobs:
             -destination "${DESTINATION}" \
             -only-testing:MapViewerTests \
             -resultBundlePath "build/TestResults.xcresult" \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO || {
+              echo "❌ Test run failed. Extracting detailed failure logs..."
+              exit 1
+            }
+
+      - name: Upload Test Results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults
+          path: build/TestResults.xcresult
+          if-no-files-found: ignore
+          retention-days: 7
 
   # =========================================================================
   # 2. ARCHIVE & EXPORT IPA JOB
