@@ -66,7 +66,7 @@ public final class SwiftDataSearchHistoryRepository: SearchHistoryRepositoryProt
             }
             
             // Prune excess if over limit
-            let all = try context.fetch(FetchDescriptor<SearchHistoryItem>(sortBy: [SortDescriptor(\.timestamp, order: .descending)]))
+            let all = try context.fetch(FetchDescriptor<SearchHistoryItem>(sortBy: [SortDescriptor(\.timestamp, order: .reverse)]))
             if all.count > maxHistoryCount {
                 for item in all.dropFirst(maxHistoryCount) {
                     context.delete(item)

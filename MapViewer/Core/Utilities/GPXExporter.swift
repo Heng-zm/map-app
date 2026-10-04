@@ -45,17 +45,17 @@ public struct GPXExporter: Sendable {
         """
         
         for pt in track.points {
-            let latStr = String(format: locale: posix, "%.6f", pt.latitude)
-            let lonStr = String(format: locale: posix, "%.6f", pt.longitude)
+            let latStr = String(format: "%.6f", locale: posix, pt.latitude)
+            let lonStr = String(format: "%.6f", locale: posix, pt.longitude)
             let timeStr = iso8601Formatter.string(from: pt.timestamp)
             
             xml += "\n      <trkpt lat=\"\(latStr)\" lon=\"\(lonStr)\">"
             if let alt = pt.altitude {
-                xml += "\n        <ele>\(String(format: locale: posix, "%.1f", alt))</ele>"
+                xml += "\n        <ele>\(String(format: "%.1f", locale: posix, alt))</ele>"
             }
             xml += "\n        <time>\(timeStr)</time>"
             if let speed = pt.speed, speed >= 0 {
-                xml += "\n        <speed>\(String(format: locale: posix, "%.2f", speed))</speed>"
+                xml += "\n        <speed>\(String(format: "%.2f", locale: posix, speed))</speed>"
             }
             xml += "\n      </trkpt>"
         }

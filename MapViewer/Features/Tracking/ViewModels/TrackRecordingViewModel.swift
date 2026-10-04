@@ -163,8 +163,9 @@ public final class TrackRecordingViewModel {
     private func startTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            Task { @MainActor in
-                self?.elapsedTime += 1.0
+            guard let vm = self else { return }
+            Task { @MainActor [vm] in
+                vm.elapsedTime += 1.0
             }
         }
     }

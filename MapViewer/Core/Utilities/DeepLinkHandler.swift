@@ -76,8 +76,8 @@ public struct DeepLinkHandler: Sendable {
         components.host = "coordinate"
         let posix = Locale(identifier: "en_US_POSIX")
         components.queryItems = [
-            URLQueryItem(name: "lat", value: String(format: locale: posix, "%.6f", latitude)),
-            URLQueryItem(name: "lon", value: String(format: locale: posix, "%.6f", longitude))
+            URLQueryItem(name: "lat", value: String(format: "%.6f", locale: posix, latitude)),
+            URLQueryItem(name: "lon", value: String(format: "%.6f", locale: posix, longitude))
         ]
         return components.url
     }
@@ -89,8 +89,8 @@ public struct DeepLinkHandler: Sendable {
         components.host = "place"
         let posix = Locale(identifier: "en_US_POSIX")
         components.queryItems = [
-            URLQueryItem(name: "lat", value: String(format: locale: posix, "%.6f", latitude)),
-            URLQueryItem(name: "lon", value: String(format: locale: posix, "%.6f", longitude)),
+            URLQueryItem(name: "lat", value: String(format: "%.6f", locale: posix, latitude)),
+            URLQueryItem(name: "lon", value: String(format: "%.6f", locale: posix, longitude)),
             URLQueryItem(name: "title", value: title)
         ]
         return components.url
