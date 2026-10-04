@@ -82,7 +82,17 @@ public final class SwiftDataSearchHistoryRepository: SearchHistoryRepositoryProt
     @MainActor
     public func delete(_ item: SearchHistoryItem) throws {
         do {
-            context.delete(item)
+            let targetId = item.id
+            let descriptor = FetchDescriptor<SearchHistoryItem>(
+                predicate: #Predicate<SearchHistoryItem> { $0.id == targetId }
+            )
+            let existingItems = try context.fetch(descriptor)
+            for existing in existingItems {
+                context.delete(existing)
+            }
+            if item.modelContext != nil && !existingItems.contains(where: { $0.id == item.id }) {
+                context.delete(item)
+            }
             try context.save()
         } catch {
             throw MapViewerError.persistenceFailed("Failed to delete search history item: \(error.localizedDescription)")
@@ -92,7 +102,11 @@ public final class SwiftDataSearchHistoryRepository: SearchHistoryRepositoryProt
     @MainActor
     public func clearAll() throws {
         do {
-            try context.delete(model: SearchHistoryItem.self)
+            let descriptor = FetchDescriptor<SearchHistoryItem>()
+            let allItems = try context.fetch(descriptor)
+            for item in allItems {
+                context.delete(item)
+            }
             try context.save()
         } catch {
             throw MapViewerError.persistenceFailed("Failed to clear search history: \(error.localizedDescription)")

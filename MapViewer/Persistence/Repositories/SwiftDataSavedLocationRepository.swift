@@ -53,7 +53,22 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func save(_ location: SavedLocation) throws {
         do {
-            context.insert(location)
+            let targetId = location.id
+            let descriptor = FetchDescriptor<SavedLocation>(
+                predicate: #Predicate<SavedLocation> { $0.id == targetId }
+            )
+            if let existing = try context.fetch(descriptor).first {
+                existing.name = location.name
+                existing.notes = location.notes
+                existing.latitude = location.latitude
+                existing.longitude = location.longitude
+                existing.address = location.address
+                existing.category = location.category
+                existing.isFavorite = location.isFavorite
+                existing.updatedAt = Date()
+            } else {
+                context.insert(location)
+            }
             try context.save()
         } catch {
             throw MapViewerError.persistenceFailed("Failed to save location: \(error.localizedDescription)")
@@ -63,7 +78,25 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func update(_ location: SavedLocation) throws {
         do {
-            location.updatedAt = Date()
+            let targetId = location.id
+            let descriptor = FetchDescriptor<SavedLocation>(
+                predicate: #Predicate<SavedLocation> { $0.id == targetId }
+            )
+            if let existing = try context.fetch(descriptor).first {
+                existing.name = location.name
+                existing.notes = location.notes
+                existing.latitude = location.latitude
+                existing.longitude = location.longitude
+                existing.address = location.address
+                existing.category = location.category
+                existing.isFavorite = location.isFavorite
+                existing.updatedAt = Date()
+            } else {
+                location.updatedAt = Date()
+                if location.modelContext == nil {
+                    context.insert(location)
+                }
+            }
             try context.save()
         } catch {
             throw MapViewerError.persistenceFailed("Failed to update location: \(error.localizedDescription)")
@@ -73,7 +106,17 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func delete(_ location: SavedLocation) throws {
         do {
-            context.delete(location)
+            let targetId = location.id
+            let descriptor = FetchDescriptor<SavedLocation>(
+                predicate: #Predicate<SavedLocation> { $0.id == targetId }
+            )
+            let existing = try context.fetch(descriptor)
+            for item in existing {
+                context.delete(item)
+            }
+            if location.modelContext != nil && !existing.contains(where: { $0.id == location.id }) {
+                context.delete(location)
+            }
             try context.save()
         } catch {
             throw MapViewerError.persistenceFailed("Failed to delete location: \(error.localizedDescription)")
@@ -108,7 +151,22 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func savePin(_ pin: CustomPin) throws {
         do {
-            context.insert(pin)
+            let targetId = pin.id
+            let descriptor = FetchDescriptor<CustomPin>(
+                predicate: #Predicate<CustomPin> { $0.id == targetId }
+            )
+            if let existing = try context.fetch(descriptor).first {
+                existing.title = pin.title
+                existing.subtitle = pin.subtitle
+                existing.notes = pin.notes
+                existing.latitude = pin.latitude
+                existing.longitude = pin.longitude
+                existing.colorHex = pin.colorHex
+                existing.isFavorite = pin.isFavorite
+                existing.updatedAt = Date()
+            } else {
+                context.insert(pin)
+            }
             try context.save()
         } catch {
             throw MapViewerError.persistenceFailed("Failed to save custom pin: \(error.localizedDescription)")
@@ -118,7 +176,22 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func updatePin(_ pin: CustomPin) throws {
         do {
-            pin.updatedAt = Date()
+            let targetId = pin.id
+            let descriptor = FetchDescriptor<CustomPin>(
+                predicate: #Predicate<CustomPin> { $0.id == targetId }
+            )
+            if let existing = try context.fetch(descriptor).first {
+                existing.title = pin.title
+                existing.subtitle = pin.subtitle
+                existing.notes = pin.notes
+                existing.latitude = pin.latitude
+                existing.longitude = pin.longitude
+                existing.colorHex = pin.colorHex
+                existing.isFavorite = pin.isFavorite
+                existing.updatedAt = Date()
+            } else {
+                context.insert(pin)
+            }
             try context.save()
         } catch {
             throw MapViewerError.persistenceFailed("Failed to update custom pin: \(error.localizedDescription)")
@@ -128,7 +201,17 @@ public final class SwiftDataSavedLocationRepository: SavedLocationRepositoryProt
     @MainActor
     public func deletePin(_ pin: CustomPin) throws {
         do {
-            context.delete(pin)
+            let targetId = pin.id
+            let descriptor = FetchDescriptor<CustomPin>(
+                predicate: #Predicate<CustomPin> { $0.id == targetId }
+            )
+            let existingPins = try context.fetch(descriptor)
+            for existing in existingPins {
+                context.delete(existing)
+            }
+            if pin.modelContext != nil && !existingPins.contains(where: { $0.id == pin.id }) {
+                context.delete(pin)
+            }
             try context.save()
         } catch {
             throw MapViewerError.persistenceFailed("Failed to delete custom pin: \(error.localizedDescription)")
