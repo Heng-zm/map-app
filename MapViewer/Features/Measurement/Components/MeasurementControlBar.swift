@@ -99,6 +99,5 @@ public struct MeasurementControlBar: View {
         }
         .padding(14)
         .glassBackground(cornerRadius: 18)
-        .padding(.horizontal, 16)
     }
 }

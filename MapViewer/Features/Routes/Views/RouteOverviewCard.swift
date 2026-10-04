@@ -77,6 +77,5 @@ public struct RouteOverviewCard: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .glassBackground(cornerRadius: 18)
-        .padding(.horizontal, 16)
     }
 }

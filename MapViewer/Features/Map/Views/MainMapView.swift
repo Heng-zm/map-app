@@ -160,50 +160,78 @@ public struct MainMapView: View {
                 }
                 .ignoresSafeArea()
                 
-                // Top Overlay: Search Bar & Settings Button
-                VStack(spacing: 8) {
+                let safeTop = max(geometry.safeAreaInsets.top, 16)
+                let safeBottom = max(geometry.safeAreaInsets.bottom, 16)
+                let safeLeading = max(geometry.safeAreaInsets.leading, 16)
+                let safeTrailing = max(geometry.safeAreaInsets.trailing, 16)
+                let topBarHeight: CGFloat = 48
+                let topControlsOffset = safeTop + 4 + topBarHeight + 10
+                let bottomCardOffset = safeBottom + 6
+
+                // Top Overlay: Search Bar & Quick Action Buttons (Respects Dynamic Island / Notch Safe Area)
+                VStack(spacing: 0) {
                     HStack(spacing: 10) {
                         Button(action: { isSearchSheetPresented = true }) {
                             HStack(spacing: 10) {
                                 Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.secondary)
-                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(.accentColor)
+                                    .font(.system(size: 16, weight: .semibold))
                                 
                                 Text("Search places, addresses...")
                                     .font(.body)
                                     .foregroundColor(.secondary)
+                                    .lineLimit(1)
                                 
                                 Spacer()
                                 
                                 Image(systemName: "mic.fill")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.secondary.opacity(0.7))
                                     .font(.system(size: 14))
                             }
                             .padding(.horizontal, 14)
-                            .padding(.vertical, 12)
-                            .glassBackground(cornerRadius: 14)
+                            .frame(height: topBarHeight)
+                            .glassBackground(cornerRadius: 16)
                         }
                         .buttonStyle(.plain)
                         .accessibilityLabel("Search places and addresses")
+                        
+                        Button(action: { isSavedPlacesPresented = true }) {
+                            ZStack {
+                                Image(systemName: "bookmark.fill")
+                                    .font(.system(size: 17, weight: .medium))
+                                    .foregroundColor(.primary)
+                                
+                                if !savedLocationsViewModel.locations.isEmpty {
+                                    Circle()
+                                        .fill(Color.accentColor)
+                                        .frame(width: 8, height: 8)
+                                        .offset(x: 8, y: -8)
+                                }
+                            }
+                            .frame(width: topBarHeight, height: topBarHeight)
+                            .glassBackground(cornerRadius: 16)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Saved Places")
                         
                         Button(action: { isSettingsPresented = true }) {
                             Image(systemName: "gearshape.fill")
                                 .font(.system(size: 18, weight: .semibold))
                                 .foregroundColor(.primary)
-                                .frame(width: 44, height: 44)
-                                .glassBackground(cornerRadius: 14)
+                                .frame(width: topBarHeight, height: topBarHeight)
+                                .glassBackground(cornerRadius: 16)
                         }
                         .buttonStyle(.plain)
                         .accessibilityLabel("Open Settings")
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 4)
+                    .padding(.horizontal, safeLeading)
+                    .padding(.top, safeTop + 4)
                     
                     Spacer()
                 }
                 
-                // Right Overlay: Floating Map Controls
-                HStack {
+                // Right Overlay: Floating Map Controls (Positioned Below Top Bar, Above Bottom Bar)
+                HStack(spacing: 0) {
                     Spacer()
                     FloatingMapControls(
                         is3D: mapViewModel.mapElevation == .realistic,
@@ -226,41 +254,52 @@ public struct MainMapView: View {
                         onOpenSaved: { isSavedPlacesPresented = true },
                         onOpenSettings: { isSettingsPresented = true }
                     )
+                    .padding(.trailing, safeTrailing)
+                    .padding(.top, topControlsOffset)
                 }
-                .padding(.top, 70)
                 
                 // Bottom Overlay: Coordinates Badge, Route Overview, or Measurement Control Bar
-                VStack(spacing: 8) {
+                VStack(spacing: 0) {
                     Spacer()
                     
-                    if mapViewModel.isMeasuringMode {
-                        MeasurementControlBar(
-                            mode: $measurementViewModel.mode,
-                            pointCount: measurementViewModel.points.count,
-                            primaryValue: measurementViewModel.formattedPrimaryValue,
-                            secondaryValue: measurementViewModel.formattedSecondaryValue,
-                            onUndo: { measurementViewModel.undoLastPoint() },
-                            onClear: { measurementViewModel.clear() },
-                            onDone: {
-                                mapViewModel.isMeasuringMode = false
-                                measurementViewModel.clear()
-                            }
-                        )
-                    } else if let activeRoute = mapViewModel.activeRoute {
-                        RouteOverviewCard(
-                            route: activeRoute,
-                            unitSystem: settingsViewModel.unitSystem,
-                            onOpenSteps: { isShowingRouteStepsSheet = true },
-                            onClearRoute: { mapViewModel.clearActiveRoute() }
-                        )
-                    } else {
-                        CoordinateDisplayBadge(
-                            coordinate: mapViewModel.currentCenter,
-                            format: settingsViewModel.coordinateFormat
-                        )
+                    Group {
+                        if mapViewModel.isMeasuringMode {
+                            MeasurementControlBar(
+                                mode: $measurementViewModel.mode,
+                                pointCount: measurementViewModel.points.count,
+                                primaryValue: measurementViewModel.formattedPrimaryValue,
+                                secondaryValue: measurementViewModel.formattedSecondaryValue,
+                                onUndo: { measurementViewModel.undoLastPoint() },
+                                onClear: { measurementViewModel.clear() },
+                                onDone: {
+                                    mapViewModel.isMeasuringMode = false
+                                    measurementViewModel.clear()
+                                }
+                            )
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                        } else if let activeRoute = mapViewModel.activeRoute {
+                            RouteOverviewCard(
+                                route: activeRoute,
+                                unitSystem: settingsViewModel.unitSystem,
+                                onOpenSteps: { isShowingRouteStepsSheet = true },
+                                onClearRoute: { mapViewModel.clearActiveRoute() }
+                            )
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                        } else {
+                            CoordinateDisplayBadge(
+                                coordinate: mapViewModel.currentCenter,
+                                format: settingsViewModel.coordinateFormat
+                            )
+                            .transition(.opacity)
+                        }
                     }
+                    .padding(.horizontal, safeLeading)
+                    .frame(maxWidth: 540)
+                    .padding(.bottom, bottomCardOffset)
                 }
-                .padding(.bottom, 16)
+                .frame(maxWidth: .infinity)
+                .animation(.spring(response: 0.35, dampingFraction: 0.8), value: mapViewModel.isMeasuringMode)
+                .animation(.spring(response: 0.35, dampingFraction: 0.8), value: mapViewModel.activeRoute != nil)
             }
         }
         // Modals & Bottom Sheets
@@ -268,6 +307,8 @@ public struct MainMapView: View {
             SearchSheetView(viewModel: searchViewModel) { selectedPlace in
                 mapViewModel.selectPlace(selectedPlace)
             }
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $mapViewModel.isPlaceDetailSheetPresented) {
             if let place = mapViewModel.selectedPlace {
@@ -316,6 +357,8 @@ public struct MainMapView: View {
                         mapViewModel.isPlaceDetailSheetPresented = false
                     }
                 )
+                .presentationDetents([.fraction(0.38), .medium, .large])
+                .presentationDragIndicator(.visible)
             }
         }
         .sheet(item: $mapViewModel.editingPin) { pin in
@@ -341,6 +384,8 @@ public struct MainMapView: View {
                 showsCompass: $mapViewModel.showsCompass,
                 showsScale: $mapViewModel.showsScale
             )
+            .presentationDetents([.medium, .fraction(0.7)])
+            .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $isSavedPlacesPresented) {
             SavedLocationsListView(
@@ -351,6 +396,8 @@ public struct MainMapView: View {
                     mapViewModel.moveToCoordinate(saved.coordinate)
                 }
             )
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $isRouteSheetPresented) {
             RoutePlanningSheetView(
@@ -363,6 +410,8 @@ public struct MainMapView: View {
                     }
                 }
             )
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $isShowingRouteStepsSheet) {
             if let activeRoute = mapViewModel.activeRoute {

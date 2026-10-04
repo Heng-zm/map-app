@@ -32,8 +32,8 @@ public struct CoordinateDisplayBadge: View {
                     .foregroundColor(.primary)
                     .lineLimit(1)
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 16)
+            .frame(height: 40)
             .glassBackground(cornerRadius: 20)
         }
         .buttonStyle(.plain)

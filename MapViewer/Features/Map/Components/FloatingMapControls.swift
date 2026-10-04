@@ -59,109 +59,98 @@ public struct FloatingMapControls: View {
     }
     
     public var body: some View {
-        VStack(spacing: 12) {
-            // Layer & Mode Controls Group
-            VStack(spacing: 1) {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 8) {
+                // Layer & Perspective Controls Group
+                VStack(spacing: 1) {
+                    mapControlButton(
+                        icon: "square.2.layers.3d",
+                        title: "Map Style",
+                        hint: "Change between standard, satellite, and hybrid map styles.",
+                        action: onOpenStylePicker
+                    )
+                    
+                    Divider().frame(width: 32)
+                    
+                    mapControlButton(
+                        icon: is3D ? "view.2d" : "view.3d",
+                        title: is3D ? "Switch to 2D" : "Switch to 3D",
+                        hint: "Toggle between flat 2D perspective and tilted 3D realistic terrain.",
+                        isActive: is3D,
+                        action: onToggle3D
+                    )
+                    
+                    Divider().frame(width: 32)
+                    
+                    mapControlButton(
+                        icon: "car.2.fill",
+                        title: "Traffic",
+                        hint: "Toggle real-time traffic conditions overlay.",
+                        isActive: isTrafficEnabled,
+                        activeColor: .orange,
+                        action: onToggleTraffic
+                    )
+                }
+                .glassBackground(cornerRadius: 14)
+                
+                // Location & Directions Group
+                VStack(spacing: 1) {
+                    mapControlButton(
+                        icon: "location.fill",
+                        title: "Locate Me",
+                        hint: "Centers the map on your current GPS position.",
+                        action: onLocateMe
+                    )
+                    
+                    Divider().frame(width: 32)
+                    
+                    mapControlButton(
+                        icon: "arrow.triangle.turn.up.right.diamond.fill",
+                        title: "Directions",
+                        hint: "Plan driving, walking, or transit routes.",
+                        isActive: hasActiveRoute,
+                        activeColor: .blue,
+                        action: onOpenRoutes
+                    )
+                }
+                .glassBackground(cornerRadius: 14)
+                
+                // Measurement Tool Button
                 mapControlButton(
-                    icon: "square.2.layers.3d",
-                    title: "Map Style",
-                    hint: "Change between standard, satellite, and hybrid map styles.",
-                    action: onOpenStylePicker
+                    icon: "ruler.fill",
+                    title: "Measure",
+                    hint: "Activate geodesic distance and polygon area measurement mode.",
+                    isActive: isMeasuring,
+                    activeColor: .indigo,
+                    action: onToggleMeasure
                 )
+                .mapControlPill()
                 
-                Divider().frame(width: 32)
-                
-                mapControlButton(
-                    icon: is3D ? "view.2d" : "view.3d",
-                    title: is3D ? "Switch to 2D" : "Switch to 3D",
-                    hint: "Toggle between flat 2D perspective and tilted 3D realistic terrain.",
-                    isActive: is3D,
-                    action: onToggle3D
-                )
-                
-                Divider().frame(width: 32)
-                
-                mapControlButton(
-                    icon: "car.2.fill",
-                    title: "Traffic",
-                    hint: "Toggle real-time traffic conditions overlay.",
-                    isActive: isTrafficEnabled,
-                    activeColor: .orange,
-                    action: onToggleTraffic
-                )
+                // Zoom Controls Group
+                VStack(spacing: 1) {
+                    mapControlButton(
+                        icon: "plus",
+                        title: "Zoom In",
+                        hint: "Magnifies the map closer.",
+                        action: onZoomIn
+                    )
+                    
+                    Divider().frame(width: 32)
+                    
+                    mapControlButton(
+                        icon: "minus",
+                        title: "Zoom Out",
+                        hint: "Zooms out to view a broader area.",
+                        action: onZoomOut
+                    )
+                }
+                .glassBackground(cornerRadius: 14)
             }
-            .glassBackground(cornerRadius: 14)
-            
-            // Zoom Controls Group
-            VStack(spacing: 1) {
-                mapControlButton(
-                    icon: "plus",
-                    title: "Zoom In",
-                    hint: "Magnifies the map closer.",
-                    action: onZoomIn
-                )
-                
-                Divider().frame(width: 32)
-                
-                mapControlButton(
-                    icon: "minus",
-                    title: "Zoom Out",
-                    hint: "Zooms out to view a broader area.",
-                    action: onZoomOut
-                )
-            }
-            .glassBackground(cornerRadius: 14)
-            
-            // Location Button
-            mapControlButton(
-                icon: "location.fill",
-                title: "Locate Me",
-                hint: "Centers the map on your current GPS position.",
-                action: onLocateMe
-            )
-            .mapControlPill()
-            
-            // Measurement Tool Button
-            mapControlButton(
-                icon: "ruler.fill",
-                title: "Measure",
-                hint: "Activate geodesic distance and polygon area measurement mode.",
-                isActive: isMeasuring,
-                activeColor: .indigo,
-                action: onToggleMeasure
-            )
-            .mapControlPill()
-            
-            // Route Directions Button
-            mapControlButton(
-                icon: "arrow.triangle.turn.up.right.diamond.fill",
-                title: "Directions",
-                hint: "Plan driving, walking, or transit routes.",
-                isActive: hasActiveRoute,
-                activeColor: .blue,
-                action: onOpenRoutes
-            )
-            .mapControlPill()
-            
-            // Saved Places Button
-            mapControlButton(
-                icon: "bookmark.fill",
-                title: "Saved Places",
-                hint: "View your saved locations and bookmarks.",
-                action: onOpenSaved
-            )
-            .mapControlPill()
-            
-            // Settings Button
-            mapControlButton(
-                icon: "gearshape.fill",
-                title: "Settings",
-                hint: "Configure units, coordinate format, and map preferences.",
-                action: onOpenSettings
-            )
-            .mapControlPill()
+            .padding(.vertical, 4)
+            .padding(.horizontal, 2)
         }
-        .padding(.trailing, 16)
+        .frame(maxHeight: 380)
+        .fixedSize(horizontal: true, vertical: false)
     }
     
     private func mapControlButton(
