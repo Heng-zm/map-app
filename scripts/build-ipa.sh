@@ -83,16 +83,33 @@ fi
 # 5. Archive for generic iOS Device
 echo "--- 4. Creating Release Device Archive ---"
 BUILD_NUMBER="${GITHUB_RUN_NUMBER:-$(date +%Y%m%d%H%M)}"
+HAS_SIGNING="${HAS_SIGNING:-false}"
 
-xcodebuild archive \
-    -project "${PROJECT}" \
-    -scheme "${SCHEME}" \
-    -configuration "${CONFIGURATION}" \
-    -destination "generic/platform=iOS" \
-    -archivePath "${ARCHIVE_PATH}" \
-    CURRENT_PROJECT_VERSION="${BUILD_NUMBER}" \
-    SKIP_INSTALL=NO \
-    BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+if [[ "${HAS_SIGNING}" == "true" ]]; then
+    echo "Archiving with code signing certificate..."
+    xcodebuild archive \
+        -project "${PROJECT}" \
+        -scheme "${SCHEME}" \
+        -configuration "${CONFIGURATION}" \
+        -destination "generic/platform=iOS" \
+        -archivePath "${ARCHIVE_PATH}" \
+        CURRENT_PROJECT_VERSION="${BUILD_NUMBER}" \
+        SKIP_INSTALL=NO \
+        BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+else
+    echo "Archiving with local code sign bypass..."
+    xcodebuild archive \
+        -project "${PROJECT}" \
+        -scheme "${SCHEME}" \
+        -configuration "${CONFIGURATION}" \
+        -destination "generic/platform=iOS" \
+        -archivePath "${ARCHIVE_PATH}" \
+        CURRENT_PROJECT_VERSION="${BUILD_NUMBER}" \
+        CODE_SIGNING_ALLOWED=NO \
+        CODE_SIGNING_REQUIRED=NO \
+        CODE_SIGN_IDENTITY="" \
+        SKIP_INSTALL=NO
+fi
 
 if [[ ! -d "${ARCHIVE_PATH}" ]]; then
     echo "❌ Error: Archive creation failed. ${ARCHIVE_PATH} does not exist."
@@ -102,21 +119,24 @@ echo "✅ Archive successfully created at ${ARCHIVE_PATH}"
 
 # 6. Export IPA
 echo "--- 5. Exporting IPA ---"
-# Check if export succeeds with signing or fall back with diagnostic
-if ! xcodebuild -exportArchive \
-    -archivePath "${ARCHIVE_PATH}" \
-    -exportPath "${EXPORT_PATH}" \
-    -exportOptionsPlist "${EXPORT_OPTIONS_PLIST}" \
-    -allowProvisioningUpdates; then
-    
-    echo "⚠️ Notice: Export with automatic/managed provisioning failed."
-    echo "Attempting export with manual signing flags if profile installed..."
-    
-    # Try manual export
+if [[ "${HAS_SIGNING}" == "true" ]]; then
+    echo "Exporting signed IPA with xcodebuild -exportArchive..."
     xcodebuild -exportArchive \
         -archivePath "${ARCHIVE_PATH}" \
         -exportPath "${EXPORT_PATH}" \
         -exportOptionsPlist "${EXPORT_OPTIONS_PLIST}"
+else
+    echo "Attempting exportArchive with local profile..."
+    if ! xcodebuild -exportArchive \
+        -archivePath "${ARCHIVE_PATH}" \
+        -exportPath "${EXPORT_PATH}" \
+        -exportOptionsPlist "${EXPORT_OPTIONS_PLIST}" 2>/dev/null; then
+        echo "Packaging device .app from xcarchive into distributable .ipa container..."
+        mkdir -p build/ipa_staging/Payload
+        cp -R "${ARCHIVE_PATH}/Products/Applications/${SCHEME}.app" build/ipa_staging/Payload/
+        (cd build/ipa_staging && zip -r -q "../export/${SCHEME}.ipa" Payload)
+        rm -rf build/ipa_staging
+    fi
 fi
 
 # 7. Validate Resulting IPA

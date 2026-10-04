@@ -164,124 +164,15 @@ jobs:
           chmod +x scripts/setup-signing.sh
           ./scripts/setup-signing.sh
 
-      - name: Clean and Create Device Archive
-        id: archive-step
+      - name: Build, Archive & Export IPA
         env:
           CONFIGURATION: ${{ inputs.configuration || 'Release' }}
-          HAS_SIGNING: ${{ steps.check-secrets.outputs.has_signing_secrets }}
-        run: |
-          mkdir -p build/export
-          
-          BUILD_NUM="${GITHUB_RUN_NUMBER}"
-          echo "Using CI Build Number: ${BUILD_NUM}"
-          
-          if [[ "${HAS_SIGNING}" == "true" ]]; then
-            echo "Archiving with distribution certificate..."
-            xcodebuild archive \
-              -project "${{ env.PROJECT_NAME }}" \
-              -scheme "${{ env.SCHEME_NAME }}" \
-              -configuration "${CONFIGURATION}" \
-              -destination "generic/platform=iOS" \
-              -archivePath "build/MapViewer.xcarchive" \
-              CURRENT_PROJECT_VERSION="${BUILD_NUM}" \
-              SKIP_INSTALL=NO \
-              BUILD_LIBRARY_FOR_DISTRIBUTION=YES
-          else
-            echo "Archiving with local code sign bypass..."
-            xcodebuild archive \
-              -project "${{ env.PROJECT_NAME }}" \
-              -scheme "${{ env.SCHEME_NAME }}" \
-              -configuration "${CONFIGURATION}" \
-              -destination "generic/platform=iOS" \
-              -archivePath "build/MapViewer.xcarchive" \
-              CURRENT_PROJECT_VERSION="${BUILD_NUM}" \
-              CODE_SIGNING_ALLOWED=NO \
-              CODE_SIGNING_REQUIRED=NO \
-              CODE_SIGN_IDENTITY="" \
-              SKIP_INSTALL=NO
-          fi
-
-      - name: Export IPA Artifact
-        id: export-step
-        env:
           EXPORT_METHOD: ${{ inputs.export_method || 'ad-hoc' }}
           HAS_SIGNING: ${{ steps.check-secrets.outputs.has_signing_secrets }}
           TEAM_ID: ${{ secrets.APPLE_TEAM_ID || '' }}
         run: |
-          if [[ "${HAS_SIGNING}" == "true" ]]; then
-            echo "Generating ExportOptions.plist for method: ${EXPORT_METHOD}..."
-            cat > build/ExportOptions.plist <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>method</key>
-    <string>${EXPORT_METHOD}</string>
-    <key>signingStyle</key>
-    <string>automatic</string>
-    <key>stripSwiftSymbols</key>
-    <true/>
-    <key>compileBitcode</key>
-    <false/>
-    <key>thinning</key>
-    <string>&lt;none&gt;</string>
-EOF
-            if [[ -n "${TEAM_ID}" ]]; then
-              cat >> build/ExportOptions.plist <<EOF
-    <key>teamID</key>
-    <string>${TEAM_ID}</string>
-EOF
-            fi
-            cat >> build/ExportOptions.plist <<EOF
-</dict>
-</plist>
-EOF
-            echo "Exporting IPA with xcodebuild -exportArchive..."
-            xcodebuild -exportArchive \
-              -archivePath "build/MapViewer.xcarchive" \
-              -exportPath "build/export" \
-              -exportOptionsPlist "build/ExportOptions.plist"
-          else
-            echo "Packaging device .app from xcarchive into distributable .ipa container..."
-            # Package real compiled application bundle into standard IPA payload
-            cd build
-            mkdir -p ipa_staging/Payload
-            cp -R "MapViewer.xcarchive/Products/Applications/MapViewer.app" ipa_staging/Payload/
-            cd ipa_staging
-            zip -r -q "../export/MapViewer.ipa" Payload
-            cd ../..
-            rm -rf build/ipa_staging
-          fi
-
-      - name: Validate Exported IPA
-        run: |
-          IPA_PATH="build/export/MapViewer.ipa"
-          
-          if [[ ! -f "${IPA_PATH}" ]]; then
-            # If exported with alternative filename, normalize
-            FOUND_IPA=$(find build/export -maxdepth 1 -name "*.ipa" | head -n 1)
-            if [[ -n "${FOUND_IPA}" ]]; then
-              mv "${FOUND_IPA}" "${IPA_PATH}"
-            else
-              echo "❌ Error: Expected IPA not found at ${IPA_PATH}"
-              exit 1
-            fi
-          fi
-          
-          echo "Inspecting IPA package contents..."
-          unzip -l "${IPA_PATH}" | grep -E "Payload/MapViewer.app/" > /dev/null
-          
-          IPA_SIZE=$(du -h "${IPA_PATH}" | cut -f1)
-          
-          echo "=========================================="
-          echo " 🚀 IPA Generation Summary"
-          echo "=========================================="
-          echo "Application:   Map Viewer"
-          echo "Bundle ID:     ${{ env.BUNDLE_ID }}"
-          echo "Build Number:  ${GITHUB_RUN_NUMBER}"
-          echo "Artifact Path: ${IPA_PATH}"
-          echo "Artifact Size: ${IPA_SIZE}"
-          echo "=========================================="
+          chmod +x scripts/build-ipa.sh
+          ./scripts/build-ipa.sh
 
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
