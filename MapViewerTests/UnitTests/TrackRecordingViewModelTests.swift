@@ -115,6 +115,7 @@ final class TrackRecordingViewModelTests: XCTestCase {
             altitude: 10.0,
             horizontalAccuracy: 5.0,
             verticalAccuracy: 5.0,
+            course: 0.0,
             speed: 3.0,
             timestamp: Date()
         )
@@ -123,6 +124,7 @@ final class TrackRecordingViewModelTests: XCTestCase {
             altitude: 12.0,
             horizontalAccuracy: 5.0,
             verticalAccuracy: 5.0,
+            course: 0.0,
             speed: 3.5,
             timestamp: Date().addingTimeInterval(5)
         )

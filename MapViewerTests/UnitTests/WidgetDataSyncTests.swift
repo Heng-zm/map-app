@@ -46,8 +46,8 @@ final class WidgetDataSyncTests: XCTestCase {
         
         let snapshot = syncService.readSnapshot()
         XCTAssertNotNil(snapshot.coordinate)
-        XCTAssertEqual(snapshot.coordinate?.latitude, 37.7749, accuracy: 0.0001)
-        XCTAssertEqual(snapshot.coordinate?.longitude, -122.4194, accuracy: 0.0001)
+        XCTAssertEqual(snapshot.coordinate!.latitude, 37.7749, accuracy: 0.0001)
+        XCTAssertEqual(snapshot.coordinate!.longitude, -122.4194, accuracy: 0.0001)
         XCTAssertEqual(snapshot.coordinate?.altitudeMeters, 52.0)
         XCTAssertEqual(snapshot.coordinate?.headingDegrees, 180.0)
         XCTAssertTrue(snapshot.coordinate!.formattedDD.contains("37.7749° N"))
