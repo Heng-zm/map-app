@@ -72,6 +72,12 @@
 		AA0100632C00000100000001 /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100632C00000100000001 /* CustomPin.swift */; };
 		AA0100642C00000100000001 /* SwiftDataSavedLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100642C00000100000001 /* SwiftDataSavedLocationRepository.swift */; };
 		AA0100652C00000100000001 /* SwiftDataSearchHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100652C00000100000001 /* SwiftDataSearchHistoryRepository.swift */; };
+		AA0100672C00000100000001 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100692C00000100000001 /* DeepLinkHandler.swift */; };
+		AA0100682C00000100000001 /* WidgetDataSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100702C00000100000001 /* WidgetDataSyncService.swift */; };
+		AA0100692C00000100000001 /* CoordinateWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100712C00000100000001 /* CoordinateWidgetView.swift */; };
+		AA0100702C00000100000001 /* FavoritesWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100722C00000100000001 /* FavoritesWidgetView.swift */; };
+		AA0100712C00000100000001 /* QuickActionsWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100732C00000100000001 /* QuickActionsWidgetView.swift */; };
+		AA0100722C00000100000001 /* MapViewerWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100742C00000100000001 /* MapViewerWidgetBundle.swift */; };
 		AA0100662C00000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB0100662C00000100000001 /* Assets.xcassets */; };
 
 /* Tests Build Files */
@@ -83,6 +89,8 @@
 		AA0200062C00000100000001 /* AppWorkflowIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200062C00000100000001 /* AppWorkflowIntegrationTests.swift */; };
 		AA0200072C00000100000001 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200072C00000100000001 /* SearchViewModelTests.swift */; };
 		AA0200082C00000100000001 /* RouteViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200082C00000100000001 /* RouteViewModelTests.swift */; };
+		AA0200092C00000100000001 /* DeepLinkHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200092C00000100000001 /* DeepLinkHandlerTests.swift */; };
+		AA0200102C00000100000001 /* WidgetDataSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200102C00000100000001 /* WidgetDataSyncTests.swift */; };
 
 /* UI Tests Build Files */
 		AA0300012C00000100000001 /* MapViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0300012C00000100000001 /* MapViewerUITests.swift */; };
@@ -179,6 +187,12 @@
 		BB0100662C00000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB0100672C00000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB0100682C00000100000001 /* MapViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MapViewer.entitlements; sourceTree = "<group>"; };
+		BB0100692C00000100000001 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities/DeepLinkHandler.swift"; sourceTree = "<group>"; };
+		BB0100702C00000100000001 /* WidgetDataSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Services/WidgetDataSyncService.swift"; sourceTree = "<group>"; };
+		BB0100712C00000100000001 /* CoordinateWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components/CoordinateWidgetView.swift"; sourceTree = "<group>"; };
+		BB0100722C00000100000001 /* FavoritesWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components/FavoritesWidgetView.swift"; sourceTree = "<group>"; };
+		BB0100732C00000100000001 /* QuickActionsWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components/QuickActionsWidgetView.swift"; sourceTree = "<group>"; };
+		BB0100742C00000100000001 /* MapViewerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewerWidgetBundle.swift"; sourceTree = "<group>"; };
 
 /* Tests File References */
 		BB0200012C00000100000001 /* CoordinateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/CoordinateFormatterTests.swift"; sourceTree = "<group>"; };
@@ -189,6 +203,8 @@
 		BB0200062C00000100000001 /* AppWorkflowIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntegrationTests/AppWorkflowIntegrationTests.swift"; sourceTree = "<group>"; };
 		BB0200072C00000100000001 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/SearchViewModelTests.swift"; sourceTree = "<group>"; };
 		BB0200082C00000100000001 /* RouteViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/RouteViewModelTests.swift"; sourceTree = "<group>"; };
+		BB0200092C00000100000001 /* DeepLinkHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/DeepLinkHandlerTests.swift"; sourceTree = "<group>"; };
+		BB0200102C00000100000001 /* WidgetDataSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitTests/WidgetDataSyncTests.swift"; sourceTree = "<group>"; };
 
 /* UI Tests File References */
 		BB0300012C00000100000001 /* MapViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewerUITests.swift; sourceTree = "<group>"; };
@@ -238,6 +254,7 @@
 				DD0100032C00000100000001 /* Features */,
 				DD0100042C00000100000001 /* Persistence */,
 				DD0100052C00000100000001 /* Resources */,
+				DD0100062C00000100000001 /* Widgets */,
 			);
 			path = MapViewer;
 			sourceTree = "<group>";
@@ -288,6 +305,7 @@
 				BB0100142C00000100000001 /* GeocodingService.swift */,
 				BB0100152C00000100000001 /* RoutingService.swift */,
 				BB0100162C00000100000001 /* MeasurementService.swift */,
+				BB0100702C00000100000001 /* WidgetDataSyncService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -327,6 +345,7 @@
 				BB0100252C00000100000001 /* CoordinateFormatter.swift */,
 				BB0100262C00000100000001 /* UnitFormatter.swift */,
 				BB0100272C00000100000001 /* GeodesicCalculator.swift */,
+				BB0100692C00000100000001 /* DeepLinkHandler.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -441,6 +460,17 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+				DD0100062C00000100000001 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100712C00000100000001 /* CoordinateWidgetView.swift */,
+				BB0100722C00000100000001 /* FavoritesWidgetView.swift */,
+				BB0100732C00000100000001 /* QuickActionsWidgetView.swift */,
+				BB0100742C00000100000001 /* MapViewerWidgetBundle.swift */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
 		000100012C00000100000004 /* MapViewerTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,6 +482,8 @@
 				BB0200062C00000100000001 /* AppWorkflowIntegrationTests.swift */,
 				BB0200072C00000100000001 /* SearchViewModelTests.swift */,
 				BB0200082C00000100000001 /* RouteViewModelTests.swift */,
+				BB0200092C00000100000001 /* DeepLinkHandlerTests.swift */,
+				BB0200102C00000100000001 /* WidgetDataSyncTests.swift */,
 			);
 			path = MapViewerTests;
 			sourceTree = "<group>";
@@ -653,6 +685,12 @@
 				AA0100632C00000100000001 /* CustomPin.swift in Sources */,
 				AA0100642C00000100000001 /* SwiftDataSavedLocationRepository.swift in Sources */,
 				AA0100652C00000100000001 /* SwiftDataSearchHistoryRepository.swift in Sources */,
+				AA0100672C00000100000001 /* DeepLinkHandler.swift in Sources */,
+				AA0100682C00000100000001 /* WidgetDataSyncService.swift in Sources */,
+				AA0100692C00000100000001 /* CoordinateWidgetView.swift in Sources */,
+				AA0100702C00000100000001 /* FavoritesWidgetView.swift in Sources */,
+				AA0100712C00000100000001 /* QuickActionsWidgetView.swift in Sources */,
+				AA0100722C00000100000001 /* MapViewerWidgetBundle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,6 +706,8 @@
 				AA0200062C00000100000001 /* AppWorkflowIntegrationTests.swift in Sources */,
 				AA0200072C00000100000001 /* SearchViewModelTests.swift in Sources */,
 				AA0200082C00000100000001 /* RouteViewModelTests.swift in Sources */,
+				AA0200092C00000100000001 /* DeepLinkHandlerTests.swift in Sources */,
+				AA0200102C00000100000001 /* WidgetDataSyncTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

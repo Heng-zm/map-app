@@ -153,6 +153,12 @@ public final class LocationService: NSObject, LocationServiceProtocol, CLLocatio
             self.currentLocation = location
             self.errorMessage = nil
             
+            WidgetDataSyncService.shared.syncLocation(
+                coordinate: location.coordinate,
+                altitude: location.altitude,
+                heading: self.currentHeading?.trueHeading
+            )
+            
             if let continuation = self.singleLocationContinuation {
                 continuation.resume(returning: location)
                 self.singleLocationContinuation = nil

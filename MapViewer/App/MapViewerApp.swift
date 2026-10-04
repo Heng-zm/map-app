@@ -74,6 +74,35 @@ struct MapViewerApp: App {
             )
             .preferredColorScheme(settingsViewModel.appearance.colorScheme)
             .modelContainer(environment.modelContainer)
+            .onOpenURL { url in
+                handleDeepLink(url)
+            }
+        }
+    }
+    
+    private func handleDeepLink(_ url: URL) {
+        guard let destination = DeepLinkHandler.parse(url: url) else { return }
+        switch destination {
+        case .coordinate(let coord):
+            mapViewModel.setCenter(coord, animated: true)
+        case .place(let coord, let title):
+            mapViewModel.setCenter(coord, animated: true)
+            mapViewModel.selectPlace(PlaceSearchResult(
+                name: title,
+                title: title,
+                subtitle: CoordinateFormatter.shared.formatDecimalDegrees(coord),
+                coordinate: coord
+            ))
+        case .search(let query):
+            if let q = query {
+                searchViewModel.queryText = q
+                searchViewModel.performSearch(query: q)
+            }
+            mapViewModel.isSearchSheetPresented = true
+        case .measure:
+            measurementViewModel.isActive = true
+        case .locate:
+            mapViewModel.centerOnUserLocation()
         }
     }
 }

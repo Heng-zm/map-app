@@ -46,6 +46,11 @@ public final class SavedLocationsViewModel {
     public func loadLocations() {
         do {
             self.locations = try repository.fetchAll()
+            let favorites = locations.filter { $0.isFavorite }
+            WidgetDataSyncService.shared.syncFavorites(
+                places: favorites,
+                userLocation: locationService.currentCoordinate
+            )
         } catch {
             self.errorMessage = "Failed to load saved locations: \(error.localizedDescription)"
         }
