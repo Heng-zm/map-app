@@ -27,6 +27,7 @@ Designed for both **iPhone** and **iPad** (with native `NavigationSplitView`), s
 10. [Geodesic Algorithms & Math](#geodesic-algorithms--math)
 11. [Known MapKit Limitations](#known-mapkit-limitations)
 12. [App Store Distribution Checklist](#app-store-distribution-checklist)
+13. [GitHub Actions CI/CD & Automated IPA Build](#github-actions-cicd--automated-ipa-build)
 
 ---
 
@@ -393,6 +394,128 @@ Before submitting to App Store Connect:
 
 ---
 
+
+---
+
+## 13. GitHub Actions CI/CD & Automated IPA Build
+
+This repository is equipped with an automated, production-grade GitHub Actions CI/CD pipeline that compiles, tests, archives, and packages the application into a signed or distributable `MapViewer.ipa` artifact.
+
+### Pipeline Flow
+
+```
+GitHub Repository (Push / PR / Manual / Tag)
+       ↓
+GitHub Actions (macOS 14 Runner - Apple Silicon M2)
+       ↓
+Checkout Source Code (actions/checkout@v4)
+       ↓
+Select & Verify Xcode (Xcode 15.4 / 16.0+)
+       ↓
+Resolve Swift Package Dependencies (xcodebuild -resolvePackageDependencies)
+       ↓
+Run Automated Unit & Integration Tests (iOS Simulator)
+       ↓
+Configure Ephemeral Keychain & Import Certificates (scripts/setup-signing.sh)
+       ↓
+Clean & Create Device Archive (xcodebuild archive generic/platform=iOS)
+       ↓
+Export IPA with ExportOptions.plist (xcodebuild -exportArchive)
+       ↓
+Verify IPA Structure (unzip -l Payload/MapViewer.app)
+       ↓
+Upload MapViewer.ipa Artifact (actions/upload-artifact@v4)
+       ↓
+Secure Cleanup (Tears down ephemeral keychain & profiles)
+```
+
+### Configured Workflows
+
+1. **`ios-build.yml` (`.github/workflows/ios-build.yml`)**:
+   - Primary build pipeline triggered on `push` to `main`/`develop`, pull requests, and manual triggers (`workflow_dispatch`).
+   - Runs tests on an iPhone simulator, creates the device archive, exports `MapViewer.ipa`, and uploads it as the `MapViewer-IPA` artifact.
+2. **`ios-ci.yml` (`.github/workflows/ios-ci.yml`)**:
+   - Fast PR verification running unit and integration test suites on an iOS Simulator.
+3. **`ios-release.yml` (`.github/workflows/ios-release.yml`)**:
+   - Triggered on Git tags (`v*`). Builds a production App Store / Ad-Hoc archive, exports the `.ipa`, uploads the artifact, and automatically publishes a GitHub Release with the attached binary.
+
+---
+
+### Required GitHub Secrets for Code Signing
+
+To produce an Apple-signed IPA for physical device installation or App Store submission, configure the following secrets in your repository settings (**Settings > Secrets and variables > Actions**):
+
+| Secret Name | Description | Example / Notes |
+|---|---|---|
+| `BUILD_CERTIFICATE_BASE64` | Base64-encoded Apple Distribution or Apple Development certificate (`.p12`) | Generated from Keychain Access on macOS |
+| `P12_PASSWORD` | Password protecting the exported `.p12` certificate file | Strong passphrase |
+| `PROVISIONING_PROFILE_BASE64` | Base64-encoded Apple Provisioning Profile (`.mobileprovision`) | Downloaded from Apple Developer Portal |
+| `KEYCHAIN_PASSWORD` | Ephemeral password for the temporary keychain generated on the runner | Any random secure string |
+| `APPLE_TEAM_ID` | Your 10-character Apple Developer Team ID | e.g. `ABC1234567` |
+
+#### How to Generate Base64 Secrets on macOS
+
+```bash
+# 1. Base64-encode your certificate (.p12)
+base64 -i YourDistributionCertificate.p12 -o cert_base64.txt
+cat cert_base64.txt | pbcopy
+# Paste directly into GitHub Secret: BUILD_CERTIFICATE_BASE64
+
+# 2. Base64-encode your provisioning profile (.mobileprovision)
+base64 -i YourApp_AdHoc.mobileprovision -o profile_base64.txt
+cat profile_base64.txt | pbcopy
+# Paste directly into GitHub Secret: PROVISIONING_PROFILE_BASE64
+```
+
+> [!NOTE]
+> **No Secrets Configured?**
+> If you run the pipeline before adding signing secrets, the workflow will automatically run all simulator unit/integration tests and create a development/device container `.ipa` for structure inspection, clearly noting in the logs that code signing secrets need to be added for distribution.
+
+---
+
+### How to Manually Trigger an IPA Build
+
+1. Open your repository on GitHub.
+2. Click the **Actions** tab.
+3. In the left sidebar, click **iOS Build & Export IPA**.
+4. Click **Run workflow** dropdown on the right:
+   - Select branch (e.g. `main`).
+   - Select Export Method: `ad-hoc`, `development`, or `app-store`.
+   - Select Configuration: `Release` or `Debug`.
+   - Check or uncheck **Run automated tests before archiving**.
+5. Click **Run workflow**.
+
+---
+
+### Where to Download the Built IPA
+
+1. Navigate to **Actions** > Select the completed workflow run.
+2. Scroll to the **Artifacts** section at the bottom of the summary page.
+3. Click **`MapViewer-IPA`** to download `MapViewer.zip`.
+4. Extract the zip to obtain **`MapViewer.ipa`**.
+
+---
+
+### How to Install the IPA on Real Hardware
+
+- **Using Apple Configurator (macOS)**: Connect your iPhone/iPad via USB, open Apple Configurator, select your device, and drag `MapViewer.ipa` onto it.
+- **Using Xcode Devices & Simulators**: Open Xcode (`Cmd + Shift + 2`), select your connected iPhone, and drag `MapViewer.ipa` into the **Installed Apps** section.
+- **Over-The-Air (OTA) Distribution**: Upload `MapViewer.ipa` to TestFlight (for `app-store` builds) or services like Diawi or Firebase App Distribution (for `ad-hoc` builds).
+
+---
+
+### Running the Local Build Script on macOS
+
+You can also build the archive and export the IPA locally on your Mac:
+
+```bash
+chmod +x scripts/build-ipa.sh
+./scripts/build-ipa.sh
+```
+
+---
+
 ## License
 
 Copyright © 2026. Built with modern Swift and SwiftUI. Distributed under the MIT License.
+

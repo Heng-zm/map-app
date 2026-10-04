@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Distribution method: app-store, ad-hoc, development, or enterprise -->
+	<key>method</key>
+	<string>ad-hoc</string>
+	
+	<!-- Apple Developer 10-character Team ID -->
+	<key>teamID</key>
+	<string>YOUR_TEAM_ID</string>
+	
+	<!-- Signing style: manual or automatic -->
+	<key>signingStyle</key>
+	<string>manual</string>
+	
+	<!-- Provisioning profiles map (required for manual signing) -->
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.antigravity.mapviewer</key>
+		<string>Map Viewer AdHoc Profile</string>
+	</dict>
+	
+	<!-- Compiler and symbol options -->
+	<key>stripSwiftSymbols</key>
+	<true/>
+	<key>compileBitcode</key>
+	<false/>
+	<key>thinning</key>
+	<string>&lt;none&gt;</string>
+</dict>
+</plist>

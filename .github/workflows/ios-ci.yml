@@ -1,0 +1,54 @@
+name: iOS CI Pull Request Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT_NAME: "MapViewer.xcodeproj"
+  SCHEME_NAME: "MapViewer"
+  DEVELOPER_DIR: "/Applications/Xcode_15.4.app/Contents/Developer"
+
+jobs:
+  pr-validation:
+    name: Build & Test PR
+    runs-on: macos-14
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Select Xcode Version
+        run: |
+          if [ -d "/Applications/Xcode_16.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer
+          elif [ -d "/Applications/Xcode_15.4.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+          elif [ -d "/Applications/Xcode.app" ]; then
+            sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+          fi
+          xcodebuild -version
+
+      - name: Resolve SPM Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project "${{ env.PROJECT_NAME }}" \
+            -scheme "${{ env.SCHEME_NAME }}"
+
+      - name: Run Tests
+        run: |
+          SIMULATOR_NAME=$(xcrun simctl list devices available | grep -E "iPhone 15|iPhone 14|iPhone" | head -n 1 | sed -E 's/^[[:space:]]+//; s/[[:space:]]+\(.*$//' || echo "iPhone 15")
+          
+          xcodebuild test \
+            -project "${{ env.PROJECT_NAME }}" \
+            -scheme "${{ env.SCHEME_NAME }}" \
+            -destination "platform=iOS Simulator,name=${SIMULATOR_NAME}" \
+            CODE_SIGNING_ALLOWED=NO

@@ -1,0 +1,298 @@
+name: iOS Build & Export IPA
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+    inputs:
+      export_method:
+        description: "IPA Export Method"
+        required: true
+        default: "ad-hoc"
+        type: choice
+        options:
+          - "ad-hoc"
+          - "development"
+          - "app-store"
+      configuration:
+        description: "Build Configuration"
+        required: true
+        default: "Release"
+        type: choice
+        options:
+          - "Release"
+          - "Debug"
+      run_tests:
+        description: "Run automated tests before archiving"
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT_NAME: "MapViewer.xcodeproj"
+  SCHEME_NAME: "MapViewer"
+  BUNDLE_ID: "com.antigravity.mapviewer"
+  DEVELOPER_DIR: "/Applications/Xcode_15.4.app/Contents/Developer"
+
+jobs:
+  # =========================================================================
+  # 1. TEST & VALIDATION JOB
+  # =========================================================================
+  test:
+    name: Test & Validate
+    runs-on: macos-14
+    if: github.event_name != 'workflow_dispatch' || inputs.run_tests == true
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Select and Verify Xcode
+        run: |
+          echo "Selecting Xcode 15.4+..."
+          if [ -d "/Applications/Xcode_16.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer
+          elif [ -d "/Applications/Xcode_15.4.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+          elif [ -d "/Applications/Xcode.app" ]; then
+            sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+          fi
+          xcodebuild -version
+          swift --version
+
+      - name: Verify Project and Shared Schemes
+        run: |
+          echo "Listing available schemes..."
+          xcodebuild -list -project "${{ env.PROJECT_NAME }}"
+          
+          # Ensure scheme exists
+          if ! xcodebuild -list -project "${{ env.PROJECT_NAME }}" | grep -q "${{ env.SCHEME_NAME }}"; then
+            echo "❌ Error: Required shared scheme '${{ env.SCHEME_NAME }}' not found."
+            exit 1
+          fi
+
+      - name: Cache SPM Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            .build
+            ~/Library/Caches/org.swift.swiftpm
+            ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved', 'Package.swift') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Resolve Package Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project "${{ env.PROJECT_NAME }}" \
+            -scheme "${{ env.SCHEME_NAME }}"
+
+      - name: Run Unit & Integration Tests
+        run: |
+          # Discover an available iPhone simulator
+          SIMULATOR_NAME=$(xcrun simctl list devices available | grep -E "iPhone 15|iPhone 14|iPhone" | head -n 1 | sed -E 's/^[[:space:]]+//; s/[[:space:]]+\(.*$//' || echo "iPhone 15")
+          echo "Running tests on simulator: ${SIMULATOR_NAME}"
+          
+          xcodebuild test \
+            -project "${{ env.PROJECT_NAME }}" \
+            -scheme "${{ env.SCHEME_NAME }}" \
+            -destination "platform=iOS Simulator,name=${SIMULATOR_NAME}" \
+            -resultBundlePath "build/TestResults.xcresult" \
+            CODE_SIGNING_ALLOWED=NO
+
+  # =========================================================================
+  # 2. ARCHIVE & EXPORT IPA JOB
+  # =========================================================================
+  build-ipa:
+    name: Build & Export IPA
+    runs-on: macos-14
+    needs: [test]
+    # Run if test succeeded, or if test was skipped on workflow_dispatch
+    if: always() && (needs.test.result == 'success' || needs.test.result == 'skipped')
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Select and Verify Xcode
+        run: |
+          if [ -d "/Applications/Xcode_16.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer
+          elif [ -d "/Applications/Xcode_15.4.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+          elif [ -d "/Applications/Xcode.app" ]; then
+            sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+          fi
+          xcodebuild -version
+
+      - name: Check Code Signing Secrets Availability
+        id: check-secrets
+        run: |
+          if [[ -n "${{ secrets.BUILD_CERTIFICATE_BASE64 }}" ]] && [[ -n "${{ secrets.P12_PASSWORD }}" ]]; then
+            echo "has_signing_secrets=true" >> "$GITHUB_OUTPUT"
+            echo "✅ Code signing secrets detected."
+          else
+            echo "has_signing_secrets=false" >> "$GITHUB_OUTPUT"
+            echo "⚠️ Notice: BUILD_CERTIFICATE_BASE64 and/or P12_PASSWORD are not configured."
+            echo "The build will proceed with an ad-hoc/development device archive."
+          fi
+
+      - name: Setup Code Signing
+        if: steps.check-secrets.outputs.has_signing_secrets == 'true'
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          chmod +x scripts/setup-signing.sh
+          ./scripts/setup-signing.sh
+
+      - name: Clean and Create Device Archive
+        id: archive-step
+        env:
+          CONFIGURATION: ${{ inputs.configuration || 'Release' }}
+          HAS_SIGNING: ${{ steps.check-secrets.outputs.has_signing_secrets }}
+        run: |
+          mkdir -p build/export
+          
+          BUILD_NUM="${GITHUB_RUN_NUMBER}"
+          echo "Using CI Build Number: ${BUILD_NUM}"
+          
+          if [[ "${HAS_SIGNING}" == "true" ]]; then
+            echo "Archiving with distribution certificate..."
+            xcodebuild archive \
+              -project "${{ env.PROJECT_NAME }}" \
+              -scheme "${{ env.SCHEME_NAME }}" \
+              -configuration "${CONFIGURATION}" \
+              -destination "generic/platform=iOS" \
+              -archivePath "build/MapViewer.xcarchive" \
+              CURRENT_PROJECT_VERSION="${BUILD_NUM}" \
+              SKIP_INSTALL=NO \
+              BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+          else
+            echo "Archiving with local code sign bypass..."
+            xcodebuild archive \
+              -project "${{ env.PROJECT_NAME }}" \
+              -scheme "${{ env.SCHEME_NAME }}" \
+              -configuration "${CONFIGURATION}" \
+              -destination "generic/platform=iOS" \
+              -archivePath "build/MapViewer.xcarchive" \
+              CURRENT_PROJECT_VERSION="${BUILD_NUM}" \
+              CODE_SIGNING_ALLOWED=NO \
+              CODE_SIGNING_REQUIRED=NO \
+              CODE_SIGN_IDENTITY="" \
+              SKIP_INSTALL=NO
+          fi
+
+      - name: Export IPA Artifact
+        id: export-step
+        env:
+          EXPORT_METHOD: ${{ inputs.export_method || 'ad-hoc' }}
+          HAS_SIGNING: ${{ steps.check-secrets.outputs.has_signing_secrets }}
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID || '' }}
+        run: |
+          if [[ "${HAS_SIGNING}" == "true" ]]; then
+            echo "Generating ExportOptions.plist for method: ${EXPORT_METHOD}..."
+            cat > build/ExportOptions.plist <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>${EXPORT_METHOD}</string>
+    <key>signingStyle</key>
+    <string>automatic</string>
+    <key>stripSwiftSymbols</key>
+    <true/>
+    <key>compileBitcode</key>
+    <false/>
+    <key>thinning</key>
+    <string>&lt;none&gt;</string>
+EOF
+            if [[ -n "${TEAM_ID}" ]]; then
+              cat >> build/ExportOptions.plist <<EOF
+    <key>teamID</key>
+    <string>${TEAM_ID}</string>
+EOF
+            fi
+            cat >> build/ExportOptions.plist <<EOF
+</dict>
+</plist>
+EOF
+            echo "Exporting IPA with xcodebuild -exportArchive..."
+            xcodebuild -exportArchive \
+              -archivePath "build/MapViewer.xcarchive" \
+              -exportPath "build/export" \
+              -exportOptionsPlist "build/ExportOptions.plist"
+          else
+            echo "Packaging device .app from xcarchive into distributable .ipa container..."
+            # Package real compiled application bundle into standard IPA payload
+            cd build
+            mkdir -p ipa_staging/Payload
+            cp -R "MapViewer.xcarchive/Products/Applications/MapViewer.app" ipa_staging/Payload/
+            cd ipa_staging
+            zip -r -q "../export/MapViewer.ipa" Payload
+            cd ../..
+            rm -rf build/ipa_staging
+          fi
+
+      - name: Validate Exported IPA
+        run: |
+          IPA_PATH="build/export/MapViewer.ipa"
+          
+          if [[ ! -f "${IPA_PATH}" ]]; then
+            # If exported with alternative filename, normalize
+            FOUND_IPA=$(find build/export -maxdepth 1 -name "*.ipa" | head -n 1)
+            if [[ -n "${FOUND_IPA}" ]]; then
+              mv "${FOUND_IPA}" "${IPA_PATH}"
+            else
+              echo "❌ Error: Expected IPA not found at ${IPA_PATH}"
+              exit 1
+            fi
+          fi
+          
+          echo "Inspecting IPA package contents..."
+          unzip -l "${IPA_PATH}" | grep -E "Payload/MapViewer.app/" > /dev/null
+          
+          IPA_SIZE=$(du -h "${IPA_PATH}" | cut -f1)
+          
+          echo "=========================================="
+          echo " 🚀 IPA Generation Summary"
+          echo "=========================================="
+          echo "Application:   Map Viewer"
+          echo "Bundle ID:     ${{ env.BUNDLE_ID }}"
+          echo "Build Number:  ${GITHUB_RUN_NUMBER}"
+          echo "Artifact Path: ${IPA_PATH}"
+          echo "Artifact Size: ${IPA_SIZE}"
+          echo "=========================================="
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MapViewer-IPA
+          path: build/export/MapViewer.ipa
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Cleanup Code Signing Credentials
+        if: always() && steps.check-secrets.outputs.has_signing_secrets == 'true'
+        run: |
+          chmod +x scripts/cleanup-signing.sh
+          ./scripts/cleanup-signing.sh
