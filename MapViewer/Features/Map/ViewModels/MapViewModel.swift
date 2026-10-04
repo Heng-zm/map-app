@@ -45,6 +45,7 @@ public final class MapViewModel {
     public var isPinEditSheetPresented: Bool = false
     public var isPlaceDetailSheetPresented: Bool = false
     public var isStylePickerPresented: Bool = false
+    public var isSearchSheetPresented: Bool = false
     
     // Overlays
     public var activeRoute: RouteInfo?
@@ -155,6 +156,10 @@ public final class MapViewModel {
                 longitudinalMeters: longitudinalMeters
             ))
         }
+    }
+    
+    public func setCenter(_ coordinate: CLLocationCoordinate2D, animated: Bool = true) {
+        moveToCoordinate(coordinate)
     }
     
     public func zoomIn() {

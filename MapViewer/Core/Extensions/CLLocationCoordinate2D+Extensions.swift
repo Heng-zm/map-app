@@ -8,21 +8,21 @@
 import Foundation
 import CoreLocation
 
-extension CLLocationCoordinate2D: @retroactive Equatable {
+extension CLLocationCoordinate2D: Equatable {
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         abs(lhs.latitude - rhs.latitude) < 0.0000001 &&
         abs(lhs.longitude - rhs.longitude) < 0.0000001
     }
 }
 
-extension CLLocationCoordinate2D: @retroactive Hashable {
+extension CLLocationCoordinate2D: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(latitude)
         hasher.combine(longitude)
     }
 }
 
-extension CLLocationCoordinate2D: @retroactive Sendable {}
+extension CLLocationCoordinate2D: @unchecked Sendable {}
 
 extension CLLocationCoordinate2D {
     /// Checks if the coordinate is within valid geographic boundaries.

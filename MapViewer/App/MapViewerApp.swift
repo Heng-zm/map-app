@@ -80,6 +80,7 @@ struct MapViewerApp: App {
         }
     }
     
+    @MainActor
     private func handleDeepLink(_ url: URL) {
         guard let destination = DeepLinkHandler.parse(url: url) else { return }
         switch destination {
@@ -101,6 +102,7 @@ struct MapViewerApp: App {
             mapViewModel.isSearchSheetPresented = true
         case .measure:
             measurementViewModel.isActive = true
+            mapViewModel.isMeasuringMode = true
         case .locate:
             mapViewModel.centerOnUserLocation()
         }

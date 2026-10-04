@@ -18,6 +18,7 @@ public enum MapViewerError: LocalizedError, Equatable, Sendable {
     case noSearchResults
     case geocodingFailed(String)
     case routeNotFound
+    case invalidCoordinates
     case invalidRouteCoordinates
     case unsupportedTransportMode
     case measurementRequiresMorePoints
@@ -46,6 +47,8 @@ public enum MapViewerError: LocalizedError, Equatable, Sendable {
             return "Address Lookup Failed: \(reason)"
         case .routeNotFound:
             return "No Route Found"
+        case .invalidCoordinates:
+            return "Invalid geographic coordinates provided."
         case .invalidRouteCoordinates:
             return "Invalid start or destination coordinates."
         case .unsupportedTransportMode:
@@ -83,6 +86,8 @@ public enum MapViewerError: LocalizedError, Equatable, Sendable {
             return "Verify the coordinate or address, or check your internet connection."
         case .routeNotFound:
             return "Directions may not be available between these locations for the selected transport type. Try selecting Driving or Walking."
+        case .invalidCoordinates:
+            return "Ensure the coordinate latitude is between -90 and 90, and longitude between -180 and 180."
         case .invalidRouteCoordinates:
             return "Verify that valid start and destination locations have been selected on the map."
         case .unsupportedTransportMode:

@@ -10,6 +10,7 @@ import MapKit
 import CoreLocation
 
 /// Full-screen production MapKit view featuring real MapKit layers, annotations, gestures, and overlays.
+@MainActor
 public struct MainMapView: View {
     @Bindable public var mapViewModel: MapViewModel
     @Bindable public var searchViewModel: SearchViewModel
@@ -19,7 +20,6 @@ public struct MainMapView: View {
     @Bindable public var settingsViewModel: SettingsViewModel
     
     // Sheet presentation states
-    @State private var isSearchSheetPresented: Bool = false
     @State private var isSavedPlacesPresented: Bool = false
     @State private var isRouteSheetPresented: Bool = false
     @State private var isSettingsPresented: Bool = false
@@ -178,7 +178,7 @@ public struct MainMapView: View {
                 // Top Overlay: Search Bar & Quick Action Buttons (Respects Dynamic Island / Notch Safe Area)
                 VStack(spacing: 0) {
                     HStack(spacing: 10) {
-                        Button(action: { isSearchSheetPresented = true }) {
+                        Button(action: { mapViewModel.isSearchSheetPresented = true }) {
                             HStack(spacing: 10) {
                                 Image(systemName: "magnifyingglass")
                                     .foregroundColor(.accentColor)
@@ -335,7 +335,7 @@ public struct MainMapView: View {
             }
         }
         // Modals & Bottom Sheets
-        .sheet(isPresented: $isSearchSheetPresented) {
+        .sheet(isPresented: $mapViewModel.isSearchSheetPresented) {
             SearchSheetView(viewModel: searchViewModel) { selectedPlace in
                 mapViewModel.selectPlace(selectedPlace)
             }

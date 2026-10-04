@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-extension MKCoordinateRegion: @retroactive Equatable {
+extension MKCoordinateRegion: Equatable {
     public static func == (lhs: MKCoordinateRegion, rhs: MKCoordinateRegion) -> Bool {
         lhs.center == rhs.center &&
         abs(lhs.span.latitudeDelta - rhs.span.latitudeDelta) < 0.0001 &&
