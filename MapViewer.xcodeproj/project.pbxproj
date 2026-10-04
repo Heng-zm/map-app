@@ -1,0 +1,970 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA0100012C00000100000001 /* MapViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100012C00000100000001 /* MapViewerApp.swift */; };
+		AA0100022C00000100000001 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100022C00000100000001 /* AppEnvironment.swift */; };
+		AA0100032C00000100000001 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100032C00000100000001 /* AppDependencies.swift */; };
+		AA0100042C00000100000001 /* CoordinateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100042C00000100000001 /* CoordinateFormat.swift */; };
+		AA0100052C00000100000001 /* UnitSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100052C00000100000001 /* UnitSystem.swift */; };
+		AA0100062C00000100000001 /* MapStyleOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100062C00000100000001 /* MapStyleOption.swift */; };
+		AA0100072C00000100000001 /* TransportationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100072C00000100000001 /* TransportationMode.swift */; };
+		AA0100082C00000100000001 /* LocationPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100082C00000100000001 /* LocationPin.swift */; };
+		AA0100092C00000100000001 /* RouteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100092C00000100000001 /* RouteInfo.swift */; };
+		AA0100102C00000100000001 /* MeasurementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100102C00000100000001 /* MeasurementItem.swift */; };
+		AA0100112C00000100000001 /* PlaceSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100112C00000100000001 /* PlaceSearchResult.swift */; };
+		AA0100122C00000100000001 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100122C00000100000001 /* LocationService.swift */; };
+		AA0100132C00000100000001 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100132C00000100000001 /* SearchService.swift */; };
+		AA0100142C00000100000001 /* GeocodingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100142C00000100000001 /* GeocodingService.swift */; };
+		AA0100152C00000100000001 /* RoutingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100152C00000100000001 /* RoutingService.swift */; };
+		AA0100162C00000100000001 /* MeasurementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100162C00000100000001 /* MeasurementService.swift */; };
+		AA0100172C00000100000001 /* SavedLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100172C00000100000001 /* SavedLocationRepository.swift */; };
+		AA0100182C00000100000001 /* SearchHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100182C00000100000001 /* SearchHistoryRepository.swift */; };
+		AA0100192C00000100000001 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100192C00000100000001 /* SettingsRepository.swift */; };
+		AA0100202C00000100000001 /* MapViewerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100202C00000100000001 /* MapViewerError.swift */; };
+		AA0100212C00000100000001 /* CLLocationCoordinate2D+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100212C00000100000001 /* CLLocationCoordinate2D+Extensions.swift */; };
+		AA0100222C00000100000001 /* MKCoordinateRegion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100222C00000100000001 /* MKCoordinateRegion+Extensions.swift */; };
+		AA0100232C00000100000001 /* Double+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100232C00000100000001 /* Double+Formatting.swift */; };
+		AA0100242C00000100000001 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100242C00000100000001 /* View+Extensions.swift */; };
+		AA0100252C00000100000001 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100252C00000100000001 /* CoordinateFormatter.swift */; };
+		AA0100262C00000100000001 /* UnitFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100262C00000100000001 /* UnitFormatter.swift */; };
+		AA0100272C00000100000001 /* GeodesicCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100272C00000100000001 /* GeodesicCalculator.swift */; };
+		AA0100282C00000100000001 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100282C00000100000001 /* MapViewModel.swift */; };
+		AA0100292C00000100000001 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100292C00000100000001 /* MainMapView.swift */; };
+		AA0100302C00000100000001 /* AdaptiveRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100302C00000100000001 /* AdaptiveRootView.swift */; };
+		AA0100312C00000100000001 /* FloatingMapControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100312C00000100000001 /* FloatingMapControls.swift */; };
+		AA0100322C00000100000001 /* MapStylePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100322C00000100000001 /* MapStylePickerSheet.swift */; };
+		AA0100332C00000100000001 /* CoordinateDisplayBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100332C00000100000001 /* CoordinateDisplayBadge.swift */; };
+		AA0100342C00000100000001 /* CustomPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100342C00000100000001 /* CustomPinAnnotationView.swift */; };
+		AA0100352C00000100000001 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100352C00000100000001 /* SearchViewModel.swift */; };
+		AA0100362C00000100000001 /* SearchSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100362C00000100000001 /* SearchSheetView.swift */; };
+		AA0100372C00000100000001 /* SearchResultsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100372C00000100000001 /* SearchResultsListView.swift */; };
+		AA0100382C00000100000001 /* PlaceDetailSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100382C00000100000001 /* PlaceDetailSheetView.swift */; };
+		AA0100392C00000100000001 /* SearchBarField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100392C00000100000001 /* SearchBarField.swift */; };
+		AA0100402C00000100000001 /* CategoryChipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100402C00000100000001 /* CategoryChipsView.swift */; };
+		AA0100412C00000100000001 /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100412C00000100000001 /* SearchHistoryView.swift */; };
+		AA0100422C00000100000001 /* SavedLocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100422C00000100000001 /* SavedLocationsViewModel.swift */; };
+		AA0100432C00000100000001 /* SavedLocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100432C00000100000001 /* SavedLocationsListView.swift */; };
+		AA0100442C00000100000001 /* LocationCardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100442C00000100000001 /* LocationCardRow.swift */; };
+		AA0100452C00000100000001 /* CategoryFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100452C00000100000001 /* CategoryFilterBar.swift */; };
+		AA0100462C00000100000001 /* PinEditSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100462C00000100000001 /* PinEditSheetView.swift */; };
+		AA0100472C00000100000001 /* LocationDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100472C00000100000001 /* LocationDetailEditView.swift */; };
+		AA0100482C00000100000001 /* RouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100482C00000100000001 /* RouteViewModel.swift */; };
+		AA0100492C00000100000001 /* RoutePlanningSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100492C00000100000001 /* RoutePlanningSheetView.swift */; };
+		AA0100502C00000100000001 /* RouteStepDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100502C00000100000001 /* RouteStepDetailView.swift */; };
+		AA0100512C00000100000001 /* RouteOverviewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100512C00000100000001 /* RouteOverviewCard.swift */; };
+		AA0100522C00000100000001 /* TransportModePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100522C00000100000001 /* TransportModePicker.swift */; };
+		AA0100532C00000100000001 /* MeasurementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100532C00000100000001 /* MeasurementViewModel.swift */; };
+		AA0100542C00000100000001 /* MeasurementControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100542C00000100000001 /* MeasurementControlBar.swift */; };
+		AA0100552C00000100000001 /* MeasurementSummaryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100552C00000100000001 /* MeasurementSummaryCard.swift */; };
+		AA0100562C00000100000001 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100562C00000100000001 /* SettingsViewModel.swift */; };
+		AA0100572C00000100000001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100572C00000100000001 /* SettingsView.swift */; };
+		AA0100582C00000100000001 /* AboutAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100582C00000100000001 /* AboutAppView.swift */; };
+		AA0100592C00000100000001 /* PrivacyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100592C00000100000001 /* PrivacyInfoView.swift */; };
+		AA0100602C00000100000001 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100602C00000100000001 /* SettingsRowView.swift */; };
+		AA0100612C00000100000001 /* SavedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100612C00000100000001 /* SavedLocation.swift */; };
+		AA0100622C00000100000001 /* SearchHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100622C00000100000001 /* SearchHistoryItem.swift */; };
+		AA0100632C00000100000001 /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100632C00000100000001 /* CustomPin.swift */; };
+		AA0100642C00000100000001 /* SwiftDataSavedLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100642C00000100000001 /* SwiftDataSavedLocationRepository.swift */; };
+		AA0100652C00000100000001 /* SwiftDataSearchHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0100652C00000100000001 /* SwiftDataSearchHistoryRepository.swift */; };
+		AA0100662C00000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB0100662C00000100000001 /* Assets.xcassets */; };
+
+/* Tests Build Files */
+		AA0200012C00000100000001 /* CoordinateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200012C00000100000001 /* CoordinateFormatterTests.swift */; };
+		AA0200022C00000100000001 /* UnitFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200022C00000100000001 /* UnitFormatterTests.swift */; };
+		AA0200032C00000100000001 /* GeodesicMathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200032C00000100000001 /* GeodesicMathTests.swift */; };
+		AA0200042C00000100000001 /* SettingsRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200042C00000100000001 /* SettingsRepositoryTests.swift */; };
+		AA0200052C00000100000001 /* SwiftDataPersistenceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200052C00000100000001 /* SwiftDataPersistenceIntegrationTests.swift */; };
+		AA0200062C00000100000001 /* AppWorkflowIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200062C00000100000001 /* AppWorkflowIntegrationTests.swift */; };
+		AA0200072C00000100000001 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200072C00000100000001 /* SearchViewModelTests.swift */; };
+		AA0200082C00000100000001 /* RouteViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0200082C00000100000001 /* RouteViewModelTests.swift */; };
+
+/* UI Tests Build Files */
+		AA0300012C00000100000001 /* MapViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0300012C00000100000001 /* MapViewerUITests.swift */; };
+		AA0300022C00000100000001 /* MapViewerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0300022C00000100000001 /* MapViewerUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC0100012C00000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000100012C00000100000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 110100012C00000100000001;
+			remoteInfo = MapViewer;
+		};
+		CC0200012C00000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000100012C00000100000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 110100012C00000100000001;
+			remoteInfo = MapViewer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		110100012C00000100000002 /* MapViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		110200012C00000100000002 /* MapViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		110300012C00000100000002 /* MapViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+
+		BB0100012C00000100000001 /* MapViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewerApp.swift; sourceTree = "<group>"; };
+		BB0100022C00000100000001 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		BB0100032C00000100000001 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
+		BB0100042C00000100000001 /* CoordinateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormat.swift; sourceTree = "<group>"; };
+		BB0100052C00000100000001 /* UnitSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitSystem.swift; sourceTree = "<group>"; };
+		BB0100062C00000100000001 /* MapStyleOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStyleOption.swift; sourceTree = "<group>"; };
+		BB0100072C00000100000001 /* TransportationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportationMode.swift; sourceTree = "<group>"; };
+		BB0100082C00000100000001 /* LocationPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPin.swift; sourceTree = "<group>"; };
+		BB0100092C00000100000001 /* RouteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfo.swift; sourceTree = "<group>"; };
+		BB0100102C00000100000001 /* MeasurementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementItem.swift; sourceTree = "<group>"; };
+		BB0100112C00000100000001 /* PlaceSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchResult.swift; sourceTree = "<group>"; };
+		BB0100122C00000100000001 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		BB0100132C00000100000001 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		BB0100142C00000100000001 /* GeocodingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingService.swift; sourceTree = "<group>"; };
+		BB0100152C00000100000001 /* RoutingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingService.swift; sourceTree = "<group>"; };
+		BB0100162C00000100000001 /* MeasurementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementService.swift; sourceTree = "<group>"; };
+		BB0100172C00000100000001 /* SavedLocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationRepository.swift; sourceTree = "<group>"; };
+		BB0100182C00000100000001 /* SearchHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryRepository.swift; sourceTree = "<group>"; };
+		BB0100192C00000100000001 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
+		BB0100202C00000100000001 /* MapViewerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewerError.swift; sourceTree = "<group>"; };
+		BB0100212C00000100000001 /* CLLocationCoordinate2D+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extensions.swift"; sourceTree = "<group>"; };
+		BB0100222C00000100000001 /* MKCoordinateRegion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Extensions.swift"; sourceTree = "<group>"; };
+		BB0100232C00000100000001 /* Double+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Formatting.swift"; sourceTree = "<group>"; };
+		BB0100242C00000100000001 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		BB0100252C00000100000001 /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
+		BB0100262C00000100000001 /* UnitFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitFormatter.swift; sourceTree = "<group>"; };
+		BB0100272C00000100000001 /* GeodesicCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeodesicCalculator.swift; sourceTree = "<group>"; };
+		BB0100282C00000100000001 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		BB0100292C00000100000001 /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
+		BB0100302C00000100000001 /* AdaptiveRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveRootView.swift; sourceTree = "<group>"; };
+		BB0100312C00000100000001 /* FloatingMapControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingMapControls.swift; sourceTree = "<group>"; };
+		BB0100322C00000100000001 /* MapStylePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStylePickerSheet.swift; sourceTree = "<group>"; };
+		BB0100332C00000100000001 /* CoordinateDisplayBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateDisplayBadge.swift; sourceTree = "<group>"; };
+		BB0100342C00000100000001 /* CustomPinAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPinAnnotationView.swift; sourceTree = "<group>"; };
+		BB0100352C00000100000001 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		BB0100362C00000100000001 /* SearchSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSheetView.swift; sourceTree = "<group>"; };
+		BB0100372C00000100000001 /* SearchResultsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsListView.swift; sourceTree = "<group>"; };
+		BB0100382C00000100000001 /* PlaceDetailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailSheetView.swift; sourceTree = "<group>"; };
+		BB0100392C00000100000001 /* SearchBarField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarField.swift; sourceTree = "<group>"; };
+		BB0100402C00000100000001 /* CategoryChipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChipsView.swift; sourceTree = "<group>"; };
+		BB0100412C00000100000001 /* SearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
+		BB0100422C00000100000001 /* SavedLocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsViewModel.swift; sourceTree = "<group>"; };
+		BB0100432C00000100000001 /* SavedLocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsListView.swift; sourceTree = "<group>"; };
+		BB0100442C00000100000001 /* LocationCardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCardRow.swift; sourceTree = "<group>"; };
+		BB0100452C00000100000001 /* CategoryFilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterBar.swift; sourceTree = "<group>"; };
+		BB0100462C00000100000001 /* PinEditSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinEditSheetView.swift; sourceTree = "<group>"; };
+		BB0100472C00000100000001 /* LocationDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailEditView.swift; sourceTree = "<group>"; };
+		BB0100482C00000100000001 /* RouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteViewModel.swift; sourceTree = "<group>"; };
+		BB0100492C00000100000001 /* RoutePlanningSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePlanningSheetView.swift; sourceTree = "<group>"; };
+		BB0100502C00000100000001 /* RouteStepDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStepDetailView.swift; sourceTree = "<group>"; };
+		BB0100512C00000100000001 /* RouteOverviewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOverviewCard.swift; sourceTree = "<group>"; };
+		BB0100522C00000100000001 /* TransportModePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportModePicker.swift; sourceTree = "<group>"; };
+		BB0100532C00000100000001 /* MeasurementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementViewModel.swift; sourceTree = "<group>"; };
+		BB0100542C00000100000001 /* MeasurementControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementControlBar.swift; sourceTree = "<group>"; };
+		BB0100552C00000100000001 /* MeasurementSummaryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementSummaryCard.swift; sourceTree = "<group>"; };
+		BB0100562C00000100000001 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		BB0100572C00000100000001 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BB0100582C00000100000001 /* AboutAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppView.swift; sourceTree = "<group>"; };
+		BB0100592C00000100000001 /* PrivacyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyInfoView.swift; sourceTree = "<group>"; };
+		BB0100602C00000100000001 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
+		BB0100612C00000100000001 /* SavedLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocation.swift; sourceTree = "<group>"; };
+		BB0100622C00000100000001 /* SearchHistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryItem.swift; sourceTree = "<group>"; };
+		BB0100632C00000100000001 /* CustomPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPin.swift; sourceTree = "<group>"; };
+		BB0100642C00000100000001 /* SwiftDataSavedLocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataSavedLocationRepository.swift; sourceTree = "<group>"; };
+		BB0100652C00000100000001 /* SwiftDataSearchHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataSearchHistoryRepository.swift; sourceTree = "<group>"; };
+		BB0100662C00000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BB0100672C00000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB0100682C00000100000001 /* MapViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MapViewer.entitlements; sourceTree = "<group>"; };
+
+/* Tests File References */
+		BB0200012C00000100000001 /* CoordinateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatterTests.swift; sourceTree = "<group>"; };
+		BB0200022C00000100000001 /* UnitFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitFormatterTests.swift; sourceTree = "<group>"; };
+		BB0200032C00000100000001 /* GeodesicMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeodesicMathTests.swift; sourceTree = "<group>"; };
+		BB0200042C00000100000001 /* SettingsRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepositoryTests.swift; sourceTree = "<group>"; };
+		BB0200052C00000100000001 /* SwiftDataPersistenceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataPersistenceIntegrationTests.swift; sourceTree = "<group>"; };
+		BB0200062C00000100000001 /* AppWorkflowIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWorkflowIntegrationTests.swift; sourceTree = "<group>"; };
+		BB0200072C00000100000001 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
+		BB0200082C00000100000001 /* RouteViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteViewModelTests.swift; sourceTree = "<group>"; };
+
+/* UI Tests File References */
+		BB0300012C00000100000001 /* MapViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewerUITests.swift; sourceTree = "<group>"; };
+		BB0300022C00000100000001 /* MapViewerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		440100012C00000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		440200012C00000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		440300012C00000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000100012C00000100000002 = {
+			isa = PBXGroup;
+			children = (
+				000100012C00000100000003 /* MapViewer */,
+				000100012C00000100000004 /* MapViewerTests */,
+				000100012C00000100000005 /* MapViewerUITests */,
+				000100012C00000100000006 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		000100012C00000100000003 /* MapViewer */ = {
+			isa = PBXGroup;
+			children = (
+				DD0100012C00000100000001 /* App */,
+				DD0100022C00000100000001 /* Core */,
+				DD0100032C00000100000001 /* Features */,
+				DD0100042C00000100000001 /* Persistence */,
+				DD0100052C00000100000001 /* Resources */,
+			);
+			path = MapViewer;
+			sourceTree = "<group>";
+		};
+		DD0100012C00000100000001 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100012C00000100000001 /* MapViewerApp.swift */,
+				BB0100022C00000100000001 /* AppEnvironment.swift */,
+				BB0100032C00000100000001 /* AppDependencies.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		DD0100022C00000100000001 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EE0100012C00000100000001 /* Models */,
+				EE0100022C00000100000001 /* Services */,
+				EE0100032C00000100000001 /* Repositories */,
+				EE0100042C00000100000001 /* Errors */,
+				EE0100052C00000100000001 /* Extensions */,
+				EE0100062C00000100000001 /* Utilities */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		EE0100012C00000100000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100042C00000100000001 /* CoordinateFormat.swift */,
+				BB0100052C00000100000001 /* UnitSystem.swift */,
+				BB0100062C00000100000001 /* MapStyleOption.swift */,
+				BB0100072C00000100000001 /* TransportationMode.swift */,
+				BB0100082C00000100000001 /* LocationPin.swift */,
+				BB0100092C00000100000001 /* RouteInfo.swift */,
+				BB0100102C00000100000001 /* MeasurementItem.swift */,
+				BB0100112C00000100000001 /* PlaceSearchResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EE0100022C00000100000001 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100122C00000100000001 /* LocationService.swift */,
+				BB0100132C00000100000001 /* SearchService.swift */,
+				BB0100142C00000100000001 /* GeocodingService.swift */,
+				BB0100152C00000100000001 /* RoutingService.swift */,
+				BB0100162C00000100000001 /* MeasurementService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		EE0100032C00000100000001 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100172C00000100000001 /* SavedLocationRepository.swift */,
+				BB0100182C00000100000001 /* SearchHistoryRepository.swift */,
+				BB0100192C00000100000001 /* SettingsRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		EE0100042C00000100000001 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100202C00000100000001 /* MapViewerError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		EE0100052C00000100000001 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100212C00000100000001 /* CLLocationCoordinate2D+Extensions.swift */,
+				BB0100222C00000100000001 /* MKCoordinateRegion+Extensions.swift */,
+				BB0100232C00000100000001 /* Double+Formatting.swift */,
+				BB0100242C00000100000001 /* View+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EE0100062C00000100000001 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100252C00000100000001 /* CoordinateFormatter.swift */,
+				BB0100262C00000100000001 /* UnitFormatter.swift */,
+				BB0100272C00000100000001 /* GeodesicCalculator.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		DD0100032C00000100000001 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				FF0100012C00000100000001 /* Map */,
+				FF0100022C00000100000001 /* Search */,
+				FF0100032C00000100000001 /* Locations */,
+				FF0100042C00000100000001 /* Routes */,
+				FF0100052C00000100000001 /* Measurement */,
+				FF0100062C00000100000001 /* Settings */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		FF0100012C00000100000001 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100282C00000100000001 /* MapViewModel.swift */,
+				BB0100292C00000100000001 /* MainMapView.swift */,
+				BB0100302C00000100000001 /* AdaptiveRootView.swift */,
+				BB0100312C00000100000001 /* FloatingMapControls.swift */,
+				BB0100322C00000100000001 /* MapStylePickerSheet.swift */,
+				BB0100332C00000100000001 /* CoordinateDisplayBadge.swift */,
+				BB0100342C00000100000001 /* CustomPinAnnotationView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		FF0100022C00000100000001 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100352C00000100000001 /* SearchViewModel.swift */,
+				BB0100362C00000100000001 /* SearchSheetView.swift */,
+				BB0100372C00000100000001 /* SearchResultsListView.swift */,
+				BB0100382C00000100000001 /* PlaceDetailSheetView.swift */,
+				BB0100392C00000100000001 /* SearchBarField.swift */,
+				BB0100402C00000100000001 /* CategoryChipsView.swift */,
+				BB0100412C00000100000001 /* SearchHistoryView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		FF0100032C00000100000001 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100422C00000100000001 /* SavedLocationsViewModel.swift */,
+				BB0100432C00000100000001 /* SavedLocationsListView.swift */,
+				BB0100442C00000100000001 /* LocationCardRow.swift */,
+				BB0100452C00000100000001 /* CategoryFilterBar.swift */,
+				BB0100462C00000100000001 /* PinEditSheetView.swift */,
+				BB0100472C00000100000001 /* LocationDetailEditView.swift */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
+		FF0100042C00000100000001 /* Routes */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100482C00000100000001 /* RouteViewModel.swift */,
+				BB0100492C00000100000001 /* RoutePlanningSheetView.swift */,
+				BB0100502C00000100000001 /* RouteStepDetailView.swift */,
+				BB0100512C00000100000001 /* RouteOverviewCard.swift */,
+				BB0100522C00000100000001 /* TransportModePicker.swift */,
+			);
+			path = Routes;
+			sourceTree = "<group>";
+		};
+		FF0100052C00000100000001 /* Measurement */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100532C00000100000001 /* MeasurementViewModel.swift */,
+				BB0100542C00000100000001 /* MeasurementControlBar.swift */,
+				BB0100552C00000100000001 /* MeasurementSummaryCard.swift */,
+			);
+			path = Measurement;
+			sourceTree = "<group>";
+		};
+		FF0100062C00000100000001 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100562C00000100000001 /* SettingsViewModel.swift */,
+				BB0100572C00000100000001 /* SettingsView.swift */,
+				BB0100582C00000100000001 /* AboutAppView.swift */,
+				BB0100592C00000100000001 /* PrivacyInfoView.swift */,
+				BB0100602C00000100000001 /* SettingsRowView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		DD0100042C00000100000001 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100612C00000100000001 /* SavedLocation.swift */,
+				BB0100622C00000100000001 /* SearchHistoryItem.swift */,
+				BB0100632C00000100000001 /* CustomPin.swift */,
+				BB0100642C00000100000001 /* SwiftDataSavedLocationRepository.swift */,
+				BB0100652C00000100000001 /* SwiftDataSearchHistoryRepository.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		DD0100052C00000100000001 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BB0100662C00000100000001 /* Assets.xcassets */,
+				BB0100672C00000100000001 /* Info.plist */,
+				BB0100682C00000100000001 /* MapViewer.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		000100012C00000100000004 /* MapViewerTests */ = {
+			isa = PBXGroup;
+			children = (
+				BB0200012C00000100000001 /* CoordinateFormatterTests.swift */,
+				BB0200022C00000100000001 /* UnitFormatterTests.swift */,
+				BB0200032C00000100000001 /* GeodesicMathTests.swift */,
+				BB0200042C00000100000001 /* SettingsRepositoryTests.swift */,
+				BB0200052C00000100000001 /* SwiftDataPersistenceIntegrationTests.swift */,
+				BB0200062C00000100000001 /* AppWorkflowIntegrationTests.swift */,
+				BB0200072C00000100000001 /* SearchViewModelTests.swift */,
+				BB0200082C00000100000001 /* RouteViewModelTests.swift */,
+			);
+			path = MapViewerTests;
+			sourceTree = "<group>";
+		};
+		000100012C00000100000005 /* MapViewerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BB0300012C00000100000001 /* MapViewerUITests.swift */,
+				BB0300022C00000100000001 /* MapViewerUITestsLaunchTests.swift */,
+			);
+			path = MapViewerUITests;
+			sourceTree = "<group>";
+		};
+		000100012C00000100000006 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				110100012C00000100000002 /* MapViewer.app */,
+				110200012C00000100000002 /* MapViewerTests.xctest */,
+				110300012C00000100000002 /* MapViewerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		110100012C00000100000001 /* MapViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 550100012C00000100000001 /* Build configuration list for PBXNativeTarget "MapViewer" */;
+			buildPhases = (
+				330100012C00000100000001 /* Sources */,
+				440100012C00000100000001 /* Frameworks */,
+				660100012C00000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MapViewer;
+			productName = MapViewer;
+			productReference = 110100012C00000100000002 /* MapViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		110200012C00000100000001 /* MapViewerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 550200012C00000100000001 /* Build configuration list for PBXNativeTarget "MapViewerTests" */;
+			buildPhases = (
+				330200012C00000100000001 /* Sources */,
+				440200012C00000100000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC0100012C00000100000000 /* PBXTargetDependency */,
+			);
+			name = MapViewerTests;
+			productName = MapViewerTests;
+			productReference = 110200012C00000100000002 /* MapViewerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		110300012C00000100000001 /* MapViewerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 550300012C00000100000001 /* Build configuration list for PBXNativeTarget "MapViewerUITests" */;
+			buildPhases = (
+				330300012C00000100000001 /* Sources */,
+				440300012C00000100000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC0200012C00000100000000 /* PBXTargetDependency */,
+			);
+			name = MapViewerUITests;
+			productName = MapViewerUITests;
+			productReference = 110300012C00000100000002 /* MapViewerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000100012C00000100000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					110100012C00000100000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					110200012C00000100000001 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 110100012C00000100000001;
+					};
+					110300012C00000100000001 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 110100012C00000100000001;
+					};
+				};
+			};
+			buildConfigurationList = 550000012C00000100000001 /* Build configuration list for PBXProject "MapViewer" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 000100012C00000100000002;
+			productRefGroup = 000100012C00000100000006 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				110100012C00000100000001 /* MapViewer */,
+				110200012C00000100000001 /* MapViewerTests */,
+				110300012C00000100000001 /* MapViewerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		660100012C00000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0100662C00000100000001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		330100012C00000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0100012C00000100000001 /* MapViewerApp.swift in Sources */,
+				AA0100022C00000100000001 /* AppEnvironment.swift in Sources */,
+				AA0100032C00000100000001 /* AppDependencies.swift in Sources */,
+				AA0100042C00000100000001 /* CoordinateFormat.swift in Sources */,
+				AA0100052C00000100000001 /* UnitSystem.swift in Sources */,
+				AA0100062C00000100000001 /* MapStyleOption.swift in Sources */,
+				AA0100072C00000100000001 /* TransportationMode.swift in Sources */,
+				AA0100082C00000100000001 /* LocationPin.swift in Sources */,
+				AA0100092C00000100000001 /* RouteInfo.swift in Sources */,
+				AA0100102C00000100000001 /* MeasurementItem.swift in Sources */,
+				AA0100112C00000100000001 /* PlaceSearchResult.swift in Sources */,
+				AA0100122C00000100000001 /* LocationService.swift in Sources */,
+				AA0100132C00000100000001 /* SearchService.swift in Sources */,
+				AA0100142C00000100000001 /* GeocodingService.swift in Sources */,
+				AA0100152C00000100000001 /* RoutingService.swift in Sources */,
+				AA0100162C00000100000001 /* MeasurementService.swift in Sources */,
+				AA0100172C00000100000001 /* SavedLocationRepository.swift in Sources */,
+				AA0100182C00000100000001 /* SearchHistoryRepository.swift in Sources */,
+				AA0100192C00000100000001 /* SettingsRepository.swift in Sources */,
+				AA0100202C00000100000001 /* MapViewerError.swift in Sources */,
+				AA0100212C00000100000001 /* CLLocationCoordinate2D+Extensions.swift in Sources */,
+				AA0100222C00000100000001 /* MKCoordinateRegion+Extensions.swift in Sources */,
+				AA0100232C00000100000001 /* Double+Formatting.swift in Sources */,
+				AA0100242C00000100000001 /* View+Extensions.swift in Sources */,
+				AA0100252C00000100000001 /* CoordinateFormatter.swift in Sources */,
+				AA0100262C00000100000001 /* UnitFormatter.swift in Sources */,
+				AA0100272C00000100000001 /* GeodesicCalculator.swift in Sources */,
+				AA0100282C00000100000001 /* MapViewModel.swift in Sources */,
+				AA0100292C00000100000001 /* MainMapView.swift in Sources */,
+				AA0100302C00000100000001 /* AdaptiveRootView.swift in Sources */,
+				AA0100312C00000100000001 /* FloatingMapControls.swift in Sources */,
+				AA0100322C00000100000001 /* MapStylePickerSheet.swift in Sources */,
+				AA0100332C00000100000001 /* CoordinateDisplayBadge.swift in Sources */,
+				AA0100342C00000100000001 /* CustomPinAnnotationView.swift in Sources */,
+				AA0100352C00000100000001 /* SearchViewModel.swift in Sources */,
+				AA0100362C00000100000001 /* SearchSheetView.swift in Sources */,
+				AA0100372C00000100000001 /* SearchResultsListView.swift in Sources */,
+				AA0100382C00000100000001 /* PlaceDetailSheetView.swift in Sources */,
+				AA0100392C00000100000001 /* SearchBarField.swift in Sources */,
+				AA0100402C00000100000001 /* CategoryChipsView.swift in Sources */,
+				AA0100412C00000100000001 /* SearchHistoryView.swift in Sources */,
+				AA0100422C00000100000001 /* SavedLocationsViewModel.swift in Sources */,
+				AA0100432C00000100000001 /* SavedLocationsListView.swift in Sources */,
+				AA0100442C00000100000001 /* LocationCardRow.swift in Sources */,
+				AA0100452C00000100000001 /* CategoryFilterBar.swift in Sources */,
+				AA0100462C00000100000001 /* PinEditSheetView.swift in Sources */,
+				AA0100472C00000100000001 /* LocationDetailEditView.swift in Sources */,
+				AA0100482C00000100000001 /* RouteViewModel.swift in Sources */,
+				AA0100492C00000100000001 /* RoutePlanningSheetView.swift in Sources */,
+				AA0100502C00000100000001 /* RouteStepDetailView.swift in Sources */,
+				AA0100512C00000100000001 /* RouteOverviewCard.swift in Sources */,
+				AA0100522C00000100000001 /* TransportModePicker.swift in Sources */,
+				AA0100532C00000100000001 /* MeasurementViewModel.swift in Sources */,
+				AA0100542C00000100000001 /* MeasurementControlBar.swift in Sources */,
+				AA0100552C00000100000001 /* MeasurementSummaryCard.swift in Sources */,
+				AA0100562C00000100000001 /* SettingsViewModel.swift in Sources */,
+				AA0100572C00000100000001 /* SettingsView.swift in Sources */,
+				AA0100582C00000100000001 /* AboutAppView.swift in Sources */,
+				AA0100592C00000100000001 /* PrivacyInfoView.swift in Sources */,
+				AA0100602C00000100000001 /* SettingsRowView.swift in Sources */,
+				AA0100612C00000100000001 /* SavedLocation.swift in Sources */,
+				AA0100622C00000100000001 /* SearchHistoryItem.swift in Sources */,
+				AA0100632C00000100000001 /* CustomPin.swift in Sources */,
+				AA0100642C00000100000001 /* SwiftDataSavedLocationRepository.swift in Sources */,
+				AA0100652C00000100000001 /* SwiftDataSearchHistoryRepository.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		330200012C00000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0200012C00000100000001 /* CoordinateFormatterTests.swift in Sources */,
+				AA0200022C00000100000001 /* UnitFormatterTests.swift in Sources */,
+				AA0200032C00000100000001 /* GeodesicMathTests.swift in Sources */,
+				AA0200042C00000100000001 /* SettingsRepositoryTests.swift in Sources */,
+				AA0200052C00000100000001 /* SwiftDataPersistenceIntegrationTests.swift in Sources */,
+				AA0200062C00000100000001 /* AppWorkflowIntegrationTests.swift in Sources */,
+				AA0200072C00000100000001 /* SearchViewModelTests.swift in Sources */,
+				AA0200082C00000100000001 /* RouteViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		330300012C00000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0300012C00000100000001 /* MapViewerUITests.swift in Sources */,
+				AA0300022C00000100000001 /* MapViewerUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC0100012C00000100000000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 110100012C00000100000001 /* MapViewer */;
+			targetProxy = CC0100012C00000100000001 /* PBXContainerItemProxy */;
+		};
+		CC0200012C00000100000000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 110100012C00000100000001 /* MapViewer */;
+			targetProxy = CC0200012C00000100000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		770000012C00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDEFINED_VARIABLES = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		770000022C00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDEFINED_VARIABLES = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		770100012C00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MapViewer/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antigravity.mapviewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		770100022C00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MapViewer/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antigravity.mapviewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		770200012C00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antigravity.mapviewer.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MapViewer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MapViewer";
+			};
+			name = Debug;
+		};
+		770200022C00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antigravity.mapviewer.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MapViewer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MapViewer";
+			};
+			name = Release;
+		};
+		770300012C00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antigravity.mapviewer.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MapViewer;
+			};
+			name = Debug;
+		};
+		770300022C00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antigravity.mapviewer.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MapViewer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		550000012C00000100000001 /* Build configuration list for PBXProject "MapViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				770000012C00000100000001 /* Debug */,
+				770000022C00000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		550100012C00000100000001 /* Build configuration list for PBXNativeTarget "MapViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				770100012C00000100000001 /* Debug */,
+				770100022C00000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		550200012C00000100000001 /* Build configuration list for PBXNativeTarget "MapViewerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				770200012C00000100000001 /* Debug */,
+				770200022C00000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		550300012C00000100000001 /* Build configuration list for PBXNativeTarget "MapViewerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				770300012C00000100000001 /* Debug */,
+				770300022C00000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 000100012C00000100000001 /* Project object */;
+}
