@@ -56,8 +56,11 @@ jobs:
             DESTINATION="platform=iOS Simulator,name=iPhone 15"
           fi
           
-          echo "Executing tests with destination: ${DESTINATION}"
-          xcodebuild test \
+          echo "Clearing any local derived data..."
+          rm -rf ~/Library/Developer/Xcode/DerivedData/*
+          
+          echo "Executing clean tests with destination: ${DESTINATION}"
+          xcodebuild clean test \
             -project "${{ env.PROJECT_NAME }}" \
             -scheme "${{ env.SCHEME_NAME }}" \
             -destination "${DESTINATION}" \
