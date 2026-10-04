@@ -35,8 +35,8 @@ public final class CoordinateFormatter: Sendable {
         let absLon = abs(coordinate.longitude)
         
         let posixLocale = Locale(identifier: "en_US_POSIX")
-        let latStr = String(format: locale: posixLocale, "%.\(precision)f° %@", absLat, latCardinal)
-        let lonStr = String(format: locale: posixLocale, "%.\(precision)f° %@", absLon, lonCardinal)
+        let latStr = String(format: "%.\(precision)f° %@", locale: posixLocale, absLat, latCardinal)
+        let lonStr = String(format: "%.\(precision)f° %@", locale: posixLocale, absLon, lonCardinal)
         
         return "\(latStr), \(lonStr)"
     }
@@ -45,7 +45,7 @@ public final class CoordinateFormatter: Sendable {
     public func formatRawDecimal(_ coordinate: CLLocationCoordinate2D, precision: Int = 6) -> String {
         guard coordinate.isValidCoordinate else { return "Invalid Coordinate" }
         let posixLocale = Locale(identifier: "en_US_POSIX")
-        return String(format: locale: posixLocale, "%.\(precision)f, %.\(precision)f", coordinate.latitude, coordinate.longitude)
+        return String(format: "%.\(precision)f, %.\(precision)f", locale: posixLocale, coordinate.latitude, coordinate.longitude)
     }
     
     /// Formats as Degrees Minutes Seconds: e.g. "37° 46' 29.74\" N, 122° 25' 09.90\" W"
@@ -69,7 +69,7 @@ public final class CoordinateFormatter: Sendable {
         let s = (minutesNotTruncated - Double(m)) * 60.0
         
         let posixLocale = Locale(identifier: "en_US_POSIX")
-        return String(format: locale: posixLocale, "%d° %02d' %05.2f\" %@", d, m, s, cardinal)
+        return String(format: "%d° %02d' %05.2f\" %@", locale: posixLocale, d, m, s, cardinal)
     }
     
     /// Generates an Apple Maps web/deep link URL for a coordinate and optional name.
